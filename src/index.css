@@ -12,6 +12,7 @@
     --input: 20 5.9% 90%;
     --primary: 24 9.8% 10%;
     --primary-foreground: 60 9.1% 97.8%;
+    --accent: 18 100% 58%;
     --radius: 0.25rem;
   }
 
@@ -28,17 +29,29 @@
 
   body {
     @apply bg-stone-50 text-stone-900;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "America", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    line-height: 1.2;
   }
 
   ::selection {
-    @apply bg-stone-900 text-stone-50;
+    background: #ff642b;
+    color: #fff7f2;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
   }
 }
 
 @layer utilities {
   .font-display {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: "America", Helvetica, Arial, sans-serif;
+  }
+
+  .font-logo {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+      monospace;
   }
 
   .text-balance {

@@ -1,106 +1,107 @@
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowDownRight } from 'lucide-react';
 import { TextScramble } from '../components/ui/text-scramble';
 import { fadeUp, staggerContainer } from '../lib/motion';
 
+const stats = [
+  { value: '60+', label: 'Projects Delivered' },
+  { value: '14', label: 'Industry Sectors' },
+  { value: '8', label: 'Years of Practice' },
+];
+
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [scrambleTrigger, setScrambleTrigger] = useState(false);
+  const [scrambleTriggerSecond, setScrambleTriggerSecond] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setScrambleTrigger(true), 600);
-    return () => clearTimeout(timer);
+    const timerSecond = setTimeout(() => setScrambleTriggerSecond(true), 760);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timerSecond);
+    };
   }, []);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex flex-col justify-end pb-20 md:pb-28 pt-32 px-6 md:px-10 lg:px-16 bg-stone-50 overflow-hidden"
+      className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-stone-50 px-6 pb-20 pt-32 md:px-10 md:pb-28 lg:px-16"
     >
-      {/* Thin rule top-right */}
       <motion.div
         initial={{ scaleX: 0 }}
         animate={isInView ? { scaleX: 1 } : {}}
         transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
-        className="absolute top-0 right-0 h-px w-1/2 bg-stone-300 origin-right"
+        className="absolute right-0 top-0 h-px w-1/2 origin-right bg-stone-300"
       />
 
-      {/* Studio label */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="absolute top-24 md:top-28 right-6 md:right-10 lg:right-16 text-xs tracking-[0.25em] uppercase text-stone-400 font-medium"
-      >
-        Est. 2024 — Creative Studio
-      </motion.p>
-
-      <div className="max-w-screen-xl mx-auto w-full">
+      <div className="mx-auto w-full max-w-screen-xl">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           className="flex flex-col gap-10 md:gap-14"
         >
-          {/* Headline */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             <motion.div variants={fadeUp}>
               <TextScramble
                 as="h1"
                 trigger={scrambleTrigger}
-                duration={1.6}
+                duration={0.8}
                 speed={0.035}
-                className="font-display text-[clamp(3rem,9vw,8.5rem)] leading-[0.92] tracking-tight text-stone-900 max-w-5xl"
+                className="font-display max-w-5xl text-[clamp(3.2rem,8vw,7.2rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-stone-950"
               >
-                Designing brands
+                Building identities
               </TextScramble>
             </motion.div>
 
-            <motion.h1
-              variants={fadeUp}
-              className="font-display text-[clamp(3rem,9vw,8.5rem)] leading-[0.92] tracking-tight text-stone-900 max-w-5xl italic"
-            >
-              that move culture.
-            </motion.h1>
+            <motion.div variants={fadeUp}>
+              <TextScramble
+                as="h1"
+                trigger={scrambleTriggerSecond}
+                duration={0.8}
+                speed={0.035}
+                className="font-display max-w-5xl text-[clamp(3.2rem,8vw,7.2rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-stone-950"
+              >
+                that earn trust fast.
+              </TextScramble>
+            </motion.div>
           </div>
 
-          {/* Bottom row */}
           <motion.div
             variants={fadeUp}
-            className="flex flex-col md:flex-row md:items-end justify-between gap-8"
+            className="flex flex-col justify-between gap-8 md:flex-row md:items-end"
           >
-            {/* Supporting copy */}
-            <p className="text-stone-500 text-base md:text-lg leading-relaxed max-w-md font-light">
-              Studio Nine One is a multidisciplinary creative studio working
-              across branding, visual identity, campaigns, and digital
-              experiences — for brands that want to matter.
+            <p className="max-w-lg text-base leading-relaxed text-stone-500 md:text-lg">
+              Studio91 shapes clear, credible brands for founders and growing
+              businesses across identity, digital presence, and launch
+              materials, with a focus on work that feels premium from day one.
             </p>
 
-            {/* CTAs */}
             <div className="flex items-center gap-5 shrink-0">
               <a
-                href="#work"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-stone-900 text-stone-50 text-sm tracking-wide hover:bg-stone-700 transition-colors duration-300 group"
+                href="#contact"
+                className="group inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#e55720]"
+                style={{ backgroundColor: '#FF642B' }}
               >
-                See Our Work
+                Start A Project
                 <ArrowDownRight
                   size={14}
-                  className="group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform duration-300"
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                 />
               </a>
               <a
-                href="#contact"
-                className="text-sm tracking-wide text-stone-600 hover:text-stone-900 transition-colors duration-300 underline underline-offset-4 decoration-stone-300 hover:decoration-stone-900"
+                href="#about"
+                className="text-sm font-medium uppercase tracking-[0.14em] text-stone-600 underline decoration-stone-300 underline-offset-4 transition-colors duration-300 hover:text-[#FF642B] hover:decoration-[#FF642B]"
               >
-                Start a project
+                About Studio91
               </a>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Horizontal rule */}
         <motion.div
           initial={{ scaleX: 0, originX: 0 }}
           animate={isInView ? { scaleX: 1 } : {}}
@@ -108,23 +109,21 @@ export default function Hero() {
           className="mt-16 h-px w-full bg-stone-200"
         />
 
-        {/* Stats row */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-8 flex flex-wrap gap-12 md:gap-20"
+          className="mt-8 flex flex-wrap justify-center gap-12 md:gap-20"
         >
-          {[
-            { value: '60+', label: 'Projects Delivered' },
-            { value: '14', label: 'Industry Sectors' },
-            { value: '8', label: 'Years of Practice' },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-1">
-              <span className="font-display text-3xl md:text-4xl text-stone-900 tracking-tight">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="flex min-w-[160px] flex-col items-center gap-1 text-center"
+            >
+              <span className="font-display text-3xl font-semibold tracking-[-0.05em] text-stone-950 md:text-4xl">
                 {stat.value}
               </span>
-              <span className="text-xs tracking-widest uppercase text-stone-400">
+              <span className="text-xs font-medium uppercase tracking-[0.18em] text-stone-400">
                 {stat.label}
               </span>
             </div>

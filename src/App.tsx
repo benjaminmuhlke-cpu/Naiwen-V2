@@ -1,12 +1,9 @@
 import Header from './sections/Header';
 import Hero from './sections/Hero';
+import ProjectShowcase from './sections/ProjectShowcase';
+import Testimonials from './sections/Testimonials';
 import Intro from './sections/Intro';
 import GlobalReach from './sections/GlobalReach';
-import Work from './sections/Work';
-import Services from './sections/Services';
-import Approach from './sections/Approach';
-import StudioJourney from './sections/StudioJourney';
-import Testimonials from './sections/Testimonials';
 import CTA from './sections/CTA';
 import Footer from './sections/Footer';
 
@@ -15,13 +12,10 @@ export default function App() {
     <main className="relative">
       <Header />
       <Hero />
+      <ProjectShowcase />
+      <Testimonials />
       <Intro />
       <GlobalReach />
-      <Work />
-      <Services />
-      <Approach />
-      <StudioJourney />
-      <Testimonials />
       <CTA />
       <Footer />
     </main>

@@ -1,101 +1,194 @@
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { TextScramble } from '../components/ui/text-scramble';
 import { staggerContainer, fadeUp } from '../lib/motion';
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-form-id';
+
+const budgetOptions = [
+  'Under $1,000',
+  '$1,000 - $3,000',
+  '$3,000 - $5,000',
+  '$5,000 - $10,000',
+  '$10,000+',
+];
 
 export default function CTA() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const [buttonHovered, setButtonHovered] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus('submitting');
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append('_subject', 'New Studio91 inquiry');
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      form.reset();
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    }
+  }
 
   return (
     <section
       ref={ref}
       id="contact"
-      className="py-32 md:py-48 px-6 md:px-10 lg:px-16 bg-stone-50 overflow-hidden"
+      className="overflow-hidden bg-stone-50 px-6 py-32 md:px-10 md:py-40 lg:px-16"
     >
-      <div className="max-w-screen-xl mx-auto">
+      <div className="mx-auto max-w-screen-xl">
         <motion.div
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={staggerContainer}
-          className="flex flex-col items-center text-center gap-10 md:gap-14"
+          className="grid gap-12 rounded-[2rem] border border-stone-200 bg-white p-8 md:grid-cols-[0.9fr_1.1fr] md:gap-16 md:p-12"
         >
-          {/* Eyebrow */}
-          <motion.p
-            variants={fadeUp}
-            className="text-xs tracking-[0.25em] uppercase text-stone-400"
-          >
-            Let's Build Something
-          </motion.p>
-
-          {/* Main heading with TextScramble */}
-          <motion.div variants={fadeUp} className="flex flex-col gap-2">
-            <TextScramble
-              as="h2"
-              trigger={isInView}
-              duration={1.4}
-              speed={0.04}
-              className="font-display text-[clamp(2.8rem,8vw,8rem)] leading-[0.9] tracking-tight text-stone-900"
+          <div className="flex flex-col gap-6">
+            <motion.p
+              variants={fadeUp}
+              className="text-xs font-medium uppercase tracking-[0.25em] text-stone-400"
             >
-              Ready to begin?
-            </TextScramble>
-          </motion.div>
+              Contact
+            </motion.p>
 
-          {/* Sub copy */}
-          <motion.p
-            variants={fadeUp}
-            className="text-stone-500 text-base md:text-xl leading-relaxed max-w-xl font-light"
-          >
-            Tell us about your project. We'll respond within 24 hours with a
-            perspective on how we can help.
-          </motion.p>
-
-          {/* CTA Button */}
-          <motion.div variants={fadeUp}>
-            <motion.a
-              href="mailto:hello@studionioneone.com"
-              onMouseEnter={() => setButtonHovered(true)}
-              onMouseLeave={() => setButtonHovered(false)}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="inline-flex items-center gap-3 px-10 py-5 bg-stone-900 text-stone-50 text-sm tracking-widest uppercase hover:bg-stone-700 transition-colors duration-300 group"
+            <motion.h2
+              variants={fadeUp}
+              className="font-display text-[clamp(2.4rem,6vw,5rem)] font-semibold leading-[0.95] tracking-[-0.05em] text-stone-950"
             >
-              <TextScramble
-                trigger={buttonHovered}
-                duration={0.5}
-                speed={0.03}
-                characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-                className="tracking-widest"
-              >
-                Start a Project
-              </TextScramble>
-              <ArrowUpRight
-                size={14}
-                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+              Tell us what you need,
+              <br />
+              we&apos;ll get back to you ASAP.
+            </motion.h2>
+
+            <motion.p
+              variants={fadeUp}
+              className="max-w-md text-base leading-8 text-stone-500"
+            >
+              Share your basic contact info, a short description of the
+              project, and your budget range. Form submissions are set up for
+              <span className="font-medium text-stone-700"> naiwen1991@gmail.com</span>.
+            </motion.p>
+
+            <motion.div
+              variants={fadeUp}
+              className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-5 text-sm leading-7 text-stone-500"
+            >
+              Replace the placeholder Formspree endpoint in this component with
+              your live form ID before launch.
+            </motion.div>
+          </div>
+
+          <motion.form variants={fadeUp} onSubmit={handleSubmit} className="grid gap-5">
+            <div className="grid gap-5 md:grid-cols-2">
+              <label className="grid gap-2 text-sm font-medium text-stone-700">
+                Name
+                <input
+                  required
+                  name="name"
+                  type="text"
+                  className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3.5 text-base text-stone-900 outline-none transition-colors duration-200 placeholder:text-stone-400 focus:border-[#FF642B]"
+                  placeholder="Your name"
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium text-stone-700">
+                Email
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3.5 text-base text-stone-900 outline-none transition-colors duration-200 placeholder:text-stone-400 focus:border-[#FF642B]"
+                  placeholder="you@example.com"
+                />
+              </label>
+            </div>
+
+            <label className="grid gap-2 text-sm font-medium text-stone-700">
+              Company / Brand
+              <input
+                name="company"
+                type="text"
+                className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3.5 text-base text-stone-900 outline-none transition-colors duration-200 placeholder:text-stone-400 focus:border-[#FF642B]"
+                placeholder="Optional"
               />
-            </motion.a>
-          </motion.div>
+            </label>
 
-          {/* Email link */}
-          <motion.a
-            variants={fadeUp}
-            href="mailto:hello@studionioneone.com"
-            className="text-sm text-stone-400 hover:text-stone-700 transition-colors duration-300 tracking-wide"
-          >
-            hello@studionioneone.com
-          </motion.a>
+            <label className="grid gap-2 text-sm font-medium text-stone-700">
+              What do you need?
+              <textarea
+                required
+                name="projectNeed"
+                rows={5}
+                className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3.5 text-base text-stone-900 outline-none transition-colors duration-200 placeholder:text-stone-400 focus:border-[#FF642B]"
+                placeholder="Briefly describe your project, goals, and timeline."
+              />
+            </label>
+
+            <label className="grid gap-2 text-sm font-medium text-stone-700">
+              Budget
+              <select
+                required
+                name="budget"
+                defaultValue=""
+                className="rounded-2xl border border-stone-200 bg-stone-50 px-4 py-3.5 text-base text-stone-900 outline-none transition-colors duration-200 focus:border-[#FF642B]"
+              >
+                <option value="" disabled>
+                  Select a budget range
+                </option>
+                {budgetOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <div className="flex flex-col gap-3 pt-2">
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className="inline-flex items-center justify-center rounded-full bg-[#FF642B] px-6 py-4 text-sm font-semibold uppercase tracking-[0.16em] text-white transition-colors duration-300 hover:bg-[#e55720] disabled:cursor-not-allowed disabled:bg-[#ff9a76]"
+              >
+                {status === 'submitting' ? 'Sending...' : 'Send Inquiry'}
+              </button>
+
+              {status === 'success' && (
+                <p className="text-sm text-emerald-600">
+                  Thanks. Your inquiry was sent successfully.
+                </p>
+              )}
+
+              {status === 'error' && (
+                <p className="text-sm text-red-600">
+                  Something went wrong. Please try again after updating the
+                  Formspree endpoint.
+                </p>
+              )}
+            </div>
+          </motion.form>
         </motion.div>
       </div>
 
-      {/* Decorative horizontal line */}
       <motion.div
         initial={{ scaleX: 0, originX: 0.5 }}
         animate={isInView ? { scaleX: 1 } : {}}
         transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1], delay: 0.5 }}
-        className="max-w-screen-xl mx-auto mt-24 h-px bg-stone-200"
+        className="mx-auto mt-24 h-px max-w-screen-xl bg-stone-200"
       />
     </section>
   );

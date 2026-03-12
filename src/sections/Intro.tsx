@@ -11,6 +11,29 @@ const disciplines = [
   'Digital',
 ];
 
+const journey = [
+  {
+    year: '2020',
+    detail:
+      'Studio91 was established in London with an early focus on brand identity, visual language, and highly considered execution for emerging businesses.',
+  },
+  {
+    year: '2021',
+    detail:
+      'The studio expanded into strategy and positioning, with early international mandates and more packaging and art direction work.',
+  },
+  {
+    year: '2022',
+    detail:
+      'Identity systems, campaigns, and digital experiences became a more visible part of the offer as the studio matured.',
+  },
+  {
+    year: '2023 - Today',
+    detail:
+      'Studio91 now works across multiple sectors with partners in several regions, balancing clarity, premium positioning, and practical execution.',
+  },
+];
+
 export default function Intro() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.25 });
@@ -19,59 +42,87 @@ export default function Intro() {
     <section
       ref={ref}
       id="about"
-      className="py-28 md:py-40 px-6 md:px-10 lg:px-16 bg-stone-900 text-stone-50 overflow-hidden"
+      className="overflow-hidden bg-stone-900 px-6 py-28 text-stone-50 md:px-10 md:py-40 lg:px-16"
     >
-      <div className="max-w-screen-xl mx-auto">
+      <div className="mx-auto max-w-screen-xl">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8"
+          className="grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8"
         >
-          {/* Left label */}
-          <motion.div variants={fadeUp} className="md:col-span-3 flex flex-col justify-start pt-2">
-            <p className="text-xs tracking-[0.25em] uppercase text-stone-400 font-medium">
-              Who We Are
+          <motion.div variants={fadeUp} className="flex flex-col justify-start pt-2 md:col-span-3">
+            <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-400">
+              About
             </p>
-            <motion.div
-              variants={lineReveal}
-              className="mt-4 h-px bg-stone-700 w-12"
-            />
+            <motion.div variants={lineReveal} className="mt-4 h-px w-12 bg-stone-700" />
           </motion.div>
 
-          {/* Main content */}
-          <div className="md:col-span-9 flex flex-col gap-10">
+          <div className="flex flex-col gap-10 md:col-span-9">
             <motion.p
               variants={fadeUp}
-              className="font-display text-[clamp(1.8rem,4.5vw,4rem)] leading-[1.15] text-stone-50 tracking-tight max-w-3xl"
+              className="font-display max-w-4xl text-[clamp(2rem,4.4vw,3.75rem)] font-semibold leading-[1.08] tracking-[-0.05em] text-stone-50"
             >
-              We are a multidisciplinary creative studio built on the belief
-              that{' '}
-              <em>great design is the intersection of strategy, taste, and
-              execution.</em>
+              Studio91 is a creative studio for brands that need to look
+              credible, feel intentional, and communicate value from the first
+              interaction.
             </motion.p>
 
             <motion.p
               variants={fadeUp}
-              className="text-stone-400 text-base md:text-lg leading-relaxed max-w-2xl font-light"
+              className="max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg"
             >
-              Studio Nine One works with founders, brands, and institutions at
-              critical junctures — launches, repositions, and evolutions.
-              We bring clarity to complex identities and craft experiences that
-              are distinctively theirs.
+              We work with founders, studios, and growing businesses at key
+              moments: launches, repositioning, offer refinement, and digital
+              presence upgrades. The aim is always the same: make the brand
+              feel clear, premium, and easy to trust.
             </motion.p>
 
-            {/* Disciplines */}
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mt-2">
-              {disciplines.map((d) => (
+            <motion.div variants={fadeUp} className="mt-2 flex flex-wrap gap-3">
+              {disciplines.map((discipline) => (
                 <span
-                  key={d}
-                  className="px-4 py-2 text-xs tracking-widest uppercase border border-stone-700 text-stone-300 hover:border-stone-400 hover:text-stone-50 transition-colors duration-300 cursor-default"
+                  key={discipline}
+                  className="cursor-default border border-stone-700 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-stone-300 transition-colors duration-300 hover:border-[#FF642B] hover:text-[#FF9A76]"
                 >
-                  {d}
+                  {discipline}
                 </span>
               ))}
             </motion.div>
+
+            <motion.details
+              variants={fadeUp}
+              className="group mt-4 rounded-3xl border border-stone-800 bg-stone-950/50 p-6"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
+                    Background
+                  </p>
+                  <p className="mt-2 font-display text-2xl font-semibold tracking-[-0.04em] text-stone-50">
+                    Read the studio story
+                  </p>
+                </div>
+                <span className="rounded-full border border-stone-700 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-stone-300 transition-colors duration-300 group-hover:border-[#FF642B] group-hover:text-[#FF642B]">
+                  Expand
+                </span>
+              </summary>
+
+              <div className="mt-6 grid gap-4 border-t border-stone-800 pt-6 md:grid-cols-2">
+                {journey.map((item) => (
+                  <div
+                    key={item.year}
+                    className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5"
+                  >
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#FF9A76]">
+                      {item.year}
+                    </p>
+                    <p className="mt-3 text-sm leading-7 text-stone-300">
+                      {item.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.details>
           </div>
         </motion.div>
       </div>
