@@ -224,9 +224,13 @@
     }
     .pc.pc-hidden { display: none; }
     .work-more-row {
-      display: flex; justify-content: flex-end;
+      display: flex; justify-content: flex-end; align-items: center;
       padding: 20px 48px 40px;
+      cursor: pointer;
+      transition: background .2s;
     }
+    .work-more-row:hover { background: rgba(0,0,0,.018); }
+    .work-more-row:hover .work-more-btn { border-color: var(--orange); color: var(--orange); }
     .work-more-btn {
       width: 38px; height: 38px; flex-shrink: 0;
       border: 1px solid rgba(0,0,0,.28); background: var(--white);
@@ -341,11 +345,11 @@
 
     /* ── CONTACT ─────────────────────────────────────────────────────────── */
     .ct-bar {
-      background: var(--white); padding: 36px 48px 22px;
+      background: var(--white); padding: 20px 48px 10px;
     }
     .ct-bar h2 {
       font-family: var(--font-d);
-      font-size: clamp(2.6rem, 5.5vw, 5rem);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
       letter-spacing: .02em; line-height: .92;
       color: var(--black); margin-bottom: 10px;
       white-space: nowrap;
@@ -354,14 +358,14 @@
       font-size: .83rem; font-weight: 300;
       line-height: 1.6; color: var(--black); max-width: 360px;
     }
-    .ct-form-wrap { padding: 22px 48px 36px; }
+    .ct-form-wrap { padding: 10px 48px 20px; }
     .ct-form {
       display: grid; grid-template-columns: 1fr 1fr;
-      max-width: 920px;
+      column-gap: 40px;
     }
     .ff {
-      display: flex; flex-direction: column; gap: 5px;
-      padding: 13px 20px;
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 7px 0;
     }
     .ff.full { grid-column: 1/-1; }
     .ff label {
@@ -369,19 +373,27 @@
       letter-spacing: .2em; text-transform: uppercase; color: var(--black);
     }
     .ff input, .ff select, .ff textarea {
-      background: none; border: none; outline: none;
+      background: #f5f5f5; border: 1.5px solid transparent; outline: none;
       font-family: var(--font-b); font-size: .9rem; font-weight: 300;
       color: var(--black); width: 100%; resize: none;
+      padding: 8px 12px; border-radius: 3px;
+      transition: background .18s, border-color .18s;
+    }
+    .ff input:hover, .ff select:hover, .ff textarea:hover {
+      background: #ebebeb;
+    }
+    .ff input:focus, .ff select:focus, .ff textarea:focus {
+      background: #f5f5f5;
+      border-color: var(--orange);
     }
     .ff input::placeholder, .ff textarea::placeholder { color: var(--orange); opacity: 1; }
-    .ff select { color: var(--orange); }
+    .ff select { color: var(--orange); cursor: pointer; }
     .ff select.chosen { color: var(--black); }
     .ff select option { color: var(--black); }
-    .ff select { cursor: pointer; }
     .ct-submit-row {
       grid-column: 1/-1;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 20px;
+      padding: 10px 0;
     }
     .ct-note {
       font-size: .62rem; color: var(--black); letter-spacing: .04em;
@@ -389,13 +401,13 @@
     .ct-note a { color: var(--black); text-decoration: none; }
     .ct-btn {
       display: inline-flex; align-items: center; gap: 10px;
-      background: var(--black); color: var(--white); border: none;
+      background: var(--orange); color: var(--white); border: none;
       padding: 15px 30px;
       font-family: var(--font-b); font-size: .63rem; font-weight: 500;
       letter-spacing: .2em; text-transform: uppercase;
       cursor: pointer; transition: background .3s;
     }
-    .ct-btn:hover { background: var(--orange); color: var(--white); }
+    .ct-btn:hover { background: var(--black); color: var(--white); }
     .ct-btn.sent { background: #444; cursor: default; opacity: .6; }
 
     /* ── FOOTER ──────────────────────────────────────────────────────────── */
@@ -560,8 +572,8 @@
         <div class="pc-dots"><span class="on"></span><span></span><span></span><span></span></div>
       </div>
     </div>
-    <div class="work-more-row">
-      <button class="work-more-btn" id="work-more-btn" aria-label="Show more projects">+</button>
+    <div class="work-more-row" id="work-more-row">
+      <button class="work-more-btn" id="work-more-btn" aria-label="Show more projects" style="pointer-events:none;">+</button>
     </div>
   </div>
 </section>
@@ -645,7 +657,7 @@
         </div>
         <div class="ff full">
           <label>Brief *</label>
-          <textarea name="brief" rows="5" placeholder="Tell us about your project, your brand, and what you're after." required></textarea>
+          <textarea name="brief" rows="3" placeholder="Tell us about your project, your brand, and what you're after." required></textarea>
         </div>
         <div class="ct-submit-row">
           <p class="ct-note">Responses within <a href="mailto:naiwen1991@gmail.com">48 hours</a>.</p>
@@ -699,11 +711,12 @@ function toggle(header) {
 // Project image cycling
 // Show More / Show Less for work grid
 (function(){
+  const row = document.getElementById('work-more-row');
   const btn = document.getElementById('work-more-btn');
   const hidden = document.querySelectorAll('.pc.pc-hidden');
   const workBody = document.getElementById('work-body');
   let expanded = false;
-  btn.addEventListener('click', () => {
+  row.addEventListener('click', () => {
     expanded = !expanded;
     hidden.forEach(c => {
       if (expanded) c.classList.remove('pc-hidden');
