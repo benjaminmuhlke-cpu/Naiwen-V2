@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio 91 — Brand Design Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF5A2F;
+      --black:  #000;
+      --white:  #fff;
+      --dark:   #111;
+      --mid:    #555;
+      --font-d: 'Bebas Neue', sans-serif;
+      --font-b: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      font-weight: 300;
+      color: var(--black);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 66px;
+      transition: background .35s, backdrop-filter .35s, border-bottom .35s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,0,0,.07);
+    }
+    .nav-logo {
+      font-family: var(--font-d);
+      font-size: 1.45rem; letter-spacing: .06em;
+      color: var(--black); text-decoration: none;
+      transition: color .3s;
+    }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a {
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--black); text-decoration: none;
+      transition: opacity .25s;
+    }
+    .nav-links a:hover { opacity: .45; }
+
+    /* ── HERO ────────────────────────────────────────────────────────────── */
+    .hero {
+      display: grid;
+      grid-template-rows: 50vh 75vh;
+    }
+
+    /* Title block — top 50% */
+    .hero-title {
+      background: var(--white);
+      padding: 0 48px 36px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .hero-title-left { display: flex; flex-direction: column; }
+    .hero-tagline {
+      font-family: var(--font-d);
+      font-size: clamp(3.6rem, 9vw, 8.5rem);
+      line-height: .88; letter-spacing: .02em;
+      color: var(--black); margin-bottom: 0;
+    }
+    .hero-rule { display: none; }
+
+    /* CTA in title block */
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--orange); color: var(--white);
+      text-decoration: none;
+      font-size: .68rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      padding: 15px 26px;
+      align-self: flex-end;
+      flex-shrink: 0;
+      transition: background .3s, transform .3s;
+    }
+    .hero-cta:hover { background: var(--black); transform: translateY(-2px); }
+    .hero-cta .arr { transition: transform .3s; }
+    .hero-cta:hover .arr { transform: translateX(5px); }
+
+    /* Image block — 75vh, bottom third revealed on scroll */
+    .hero-image {
+      width: 100%;
+    }
+
+    /* ── IMAGE WRAP — single static image spanning hero-bottom + numbers ── */
+    .img-band {
+      background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=80&auto=format&fit=crop')
+                  center top / cover no-repeat;
+    }
+
+    /* ── NUMBERS ─────────────────────────────────────────────────────────── */
+    .numbers {
+      background: var(--white);
+      padding: 0 48px 72px;
+      border-top: none;
+    }
+    .numbers-card {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      max-width: 760px; margin: 0 auto;
+    }
+    .stat {
+      padding: 44px 28px; text-align: center;
+    }
+    .stat:last-child { }
+    .stat-n {
+      font-family: var(--font-d);
+      font-size: clamp(3.4rem, 6vw, 5.5rem);
+      line-height: 1; letter-spacing: .02em; color: var(--black);
+    }
+    .stat-l {
+      margin-top: 6px;
+      font-size: .6rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--black);
+    }
+
+    /* ── SECTION SHELL (collapsible) ─────────────────────────────────────── */
+    .cs { background: var(--white); }
+    .cs-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 44px 48px 36px;
+      cursor: pointer; user-select: none;
+      transition: background .2s;
+    }
+    .cs-head:hover { background: rgba(0,0,0,.018); }
+    .cs-title {
+      font-family: var(--font-d);
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      letter-spacing: .02em; color: var(--black);
+    }
+    .cs-title::after {
+      content: '';
+      display: block;
+      width: 72px; height: 2px;
+      background: var(--orange);
+      margin-top: 10px;
+    }
+    .tog {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,.28); background: var(--white);
+      font-size: 1.15rem; font-weight: 400; color: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color .25s, color .25s;
+      pointer-events: none;
+    }
+    .cs-head:hover .tog {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+    .cs-body { overflow: hidden; max-height: 0; }
+
+    #work-body { max-height: none !important; overflow: visible; }
+
+    /* ── LOGOS STRIP ────────────────────────────────────────────────────── */
+    .logos-strip {
+      background: var(--white);
+      padding: 48px 0 56px;
+      overflow: hidden;
+      position: relative;
+    }
+    .logos-label {
+      text-align: center;
+      font-family: var(--font-b);
+      font-size: .58rem; font-weight: 500;
+      letter-spacing: .26em; text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 28px;
+    }
+    .logos-track-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    /* fade edges */
+    .logos-track-wrap::before,
+    .logos-track-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+    }
+    .logos-track-wrap::before { left: 0;  background: linear-gradient(to right, #fff 0%, transparent 100%); }
+    .logos-track-wrap::after  { right: 0; background: linear-gradient(to left,  #fff 0%, transparent 100%); }
+
+    .logos-track {
+      display: flex; align-items: center; gap: 64px;
+      width: max-content;
+      animation: logos-scroll 28s linear infinite;
+    }
+    .logos-track:hover { animation-play-state: paused; }
+    @keyframes logos-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .logos-track img {
+      height: 28px; width: auto;
+      opacity: 0.5;
+      filter: grayscale(1) contrast(1.2);
+      transition: opacity .25s;
+      flex-shrink: 0;
+    }
+    .logos-track img:hover { opacity: 0.85; }
+
+    /* ── WORK GRID ───────────────────────────────────────────────────────── */
+    .work-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; background: transparent; padding: 0;
+    }
+    .pc.pc-hidden { display: none; }
+    .work-more-row {
+      display: flex; justify-content: flex-end;
+      padding: 20px 48px 40px;
+    }
+    .work-more-btn {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,.28); background: var(--white);
+      font-size: 1.15rem; font-weight: 400; color: var(--black);
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color .25s, color .25s;
+    }
+    .work-more-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .pc {
+      position: relative; overflow: hidden;
+      aspect-ratio: 4/3; background: var(--dark); cursor: pointer;
+    }
+    .img-wrap { position: absolute; inset: 0; }
+    .img-wrap img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0;
+      transition: transform .7s ease;
+    }
+    .img-wrap img.on { opacity: 1; }
+    .pc:hover .img-wrap img { transform: scale(1.04); }
+    .pc-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 55%);
+    }
+    .pc-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 20px 22px; z-index: 1;
+    }
+    .pc-cat {
+      font-size: .58rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(255,255,255,.5); margin-bottom: 4px;
+    }
+    .pc-name {
+      font-family: var(--font-d);
+      font-size: 1.55rem; letter-spacing: .04em;
+      color: var(--white); line-height: 1;
+    }
+    .pc-dots {
+      position: absolute; bottom: 16px; right: 16px;
+      display: flex; gap: 5px; z-index: 1;
+    }
+    .pc-dots span {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,.28); transition: background .2s;
+    }
+    .pc-dots span.on { background: var(--white); }
+
+    /* ── ABOUT ───────────────────────────────────────────────────────────── */
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; padding: 64px 48px 88px; align-items: start;
+    }
+    .globe-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    canvas#globe {
+      display: block; width: 100%; max-width: 420px; aspect-ratio: 1;
+      opacity: 0; transition: opacity 0.6s ease;
+    }
+    .globe-cap {
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--black);
+    }
+    .story { display: flex; flex-direction: column; gap: 26px; }
+    .story-lbl {
+      font-size: .62rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase; color: var(--orange);
+    }
+    .story-h {
+      font-family: var(--font-d);
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      letter-spacing: .02em; line-height: .95; color: var(--black);
+    }
+    .story-p {
+      font-size: .9rem; font-weight: 300;
+      line-height: 1.88; color: var(--black); max-width: 460px;
+    }
+    .story-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .story-tags span {
+      font-size: .6rem; font-weight: 500;
+      letter-spacing: .15em; text-transform: uppercase;
+      border: 1px solid rgba(0,0,0,.14);
+      padding: 6px 14px; color: var(--black);
+    }
+    .story-loc {
+      font-size: .78rem; font-weight: 300; color: var(--black);
+    }
+
+    /* ── ABOUT (white section, dark globe only) ──────────────────────────── */
+    #about { background: var(--white); }
+    #about .cs-head { background: var(--white); }
+    #about .cs-head:hover { background: rgba(0,0,0,.018); }
+    #about .cs-title { color: var(--black); }
+    #about .cs-title::after { background: var(--orange); }
+    #about .tog { border-color: rgba(0,0,0,.28); color: var(--black); background: transparent; }
+    #about .cs-head:hover .tog { border-color: var(--orange); color: var(--orange); }
+    #about .about-inner { padding: 72px 48px 96px; }
+    #about .story-h { color: var(--black); }
+    #about .story-p { color: var(--black); }
+    #about .story-tags span {
+      border-color: rgba(0,0,0,.14);
+      color: rgba(0,0,0,.58);
+      background: transparent;
+    }
+    #about .story-loc { color: var(--black); }
+
+    #about .globe-cap {
+      color: var(--orange);
+      letter-spacing: .2em;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────────────────────── */
+    .ct-bar {
+      background: var(--white); padding: 36px 48px 22px;
+    }
+    .ct-bar h2 {
+      font-family: var(--font-d);
+      font-size: clamp(2.6rem, 5.5vw, 5rem);
+      letter-spacing: .02em; line-height: .92;
+      color: var(--black); margin-bottom: 10px;
+      white-space: nowrap;
+    }
+    .ct-sub {
+      font-size: .83rem; font-weight: 300;
+      line-height: 1.6; color: var(--black); max-width: 360px;
+    }
+    .ct-form-wrap { padding: 22px 48px 36px; }
+    .ct-form {
+      display: grid; grid-template-columns: 1fr 1fr;
+      max-width: 920px;
+    }
+    .ff {
+      display: flex; flex-direction: column; gap: 5px;
+      padding: 13px 20px;
+    }
+    .ff.full { grid-column: 1/-1; }
+    .ff label {
+      font-size: .58rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--black);
+    }
+    .ff input, .ff select, .ff textarea {
+      background: none; border: none; outline: none;
+      font-family: var(--font-b); font-size: .9rem; font-weight: 300;
+      color: var(--black); width: 100%; resize: none;
+    }
+    .ff input::placeholder, .ff textarea::placeholder { color: var(--orange); opacity: 1; }
+    .ff select { color: var(--orange); }
+    .ff select.chosen { color: var(--black); }
+    .ff select option { color: var(--black); }
+    .ff select { cursor: pointer; }
+    .ct-submit-row {
+      grid-column: 1/-1;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px;
+    }
+    .ct-note {
+      font-size: .62rem; color: var(--black); letter-spacing: .04em;
+    }
+    .ct-note a { color: var(--black); text-decoration: none; }
+    .ct-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--black); color: var(--white); border: none;
+      padding: 15px 30px;
+      font-family: var(--font-b); font-size: .63rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      cursor: pointer; transition: background .3s;
+    }
+    .ct-btn:hover { background: var(--orange); color: var(--white); }
+    .ct-btn.sent { background: #444; cursor: default; opacity: .6; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 30px 48px;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+    .ft-logo {
+      font-family: var(--font-d); font-size: 1.1rem;
+      letter-spacing: .08em; color: var(--white); text-decoration: none;
+    }
+    .ft-copy {
+      font-size: .6rem; letter-spacing: .1em; color: rgba(255,255,255,.22);
+    }
+    .ft-links { display: flex; gap: 22px; }
+    .ft-links a {
+      font-size: .6rem; font-weight: 500;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(255,255,255,.28); text-decoration: none;
+      transition: color .25s;
+    }
+    .ft-links a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .hero { height: auto; }
+      .hero-title { padding: 48px 20px 32px; flex-direction: column; align-items: flex-start; gap: 24px; }
+      .hero-image { height: 52vw; min-height: 260px; flex: none; }
+      .numbers { padding: 0 20px 56px; }
+      .numbers-card { grid-template-columns: repeat(3,1fr); }
+      .stat { padding: 28px 10px; }
+      .cs-head { padding: 28px 20px 22px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 44px; padding: 44px 20px 64px; }
+      canvas#globe { max-width: 300px; }
+      .ct-bar { padding: 36px 20px 22px; }
+      .ct-bar h2 { white-space: normal; font-size: clamp(2.2rem, 8vw, 3.5rem); }
+      .ct-form-wrap { padding: 20px 20px 44px; }
+      .ct-form { grid-template-columns: 1fr; }
+      .ff { border-right: none; }
+      .ct-submit-row { flex-direction: column; gap: 16px; align-items: flex-start; }
+      footer { flex-direction: column; gap: 18px; text-align: center; padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">STUDIO 91</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-title">
+    <div class="hero-title-left">
+      <h1 class="hero-tagline">BRANDS BUILT<br>TO BE REMEMBERED.</h1>
+      <hr class="hero-rule">
+    </div>
+    <a href="#contact" class="hero-cta">Let's Work <span class="arr">→</span></a>
+  </div>
+  <div class="hero-image img-band"></div>
+</section>
+
+<!-- NUMBERS -->
+<div class="numbers">
+  <div class="numbers-card">
+    <div class="stat"><div class="stat-n">180+</div><div class="stat-l">Projects</div></div>
+    <div class="stat"><div class="stat-n">12</div><div class="stat-l">Years</div></div>
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Countries</div></div>
+  </div>
+</div>
+
+<!-- LOGOS -->
+<div class="logos-strip">
+  <p class="logos-label">Trusted by</p>
+  <div class="logos-track-wrap">
+    <div class="logos-track" id="logos-track">
+      <!-- Set 1 -->
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark.svg" alt="Next.js">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg" alt="Vercel">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/figma-wordmark.svg" alt="Figma">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/astro-wordmark.svg" alt="Astro">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg" alt="Supabase">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark.svg" alt="Tailwind" style="height:18px;">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/react-wordmark.svg" alt="React">
+      <img src="https://motion-primitives.com/prada_logo.svg" alt="Prada">
+      <!-- Set 2 — exact duplicate for seamless loop -->
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark.svg" alt="Next.js">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg" alt="Vercel">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/figma-wordmark.svg" alt="Figma">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/astro-wordmark.svg" alt="Astro">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg" alt="Supabase">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark.svg" alt="Tailwind" style="height:18px;">
+      <img src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/react-wordmark.svg" alt="React">
+      <img src="https://motion-primitives.com/prada_logo.svg" alt="Prada">
+    </div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work" class="cs">
+  <div class="cs-head" style="cursor:default;">
+    <h2 class="cs-title">SELECTED WORK</h2>
+  </div>
+  <div class="cs-body" id="work-body">
+    <div class="work-grid">
+      <!-- 1 -->
+      <div class="pc">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?w=900&q=80&auto=format&fit=crop" class="on" alt="">
+          <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=900&q=80&auto=format&fit=crop" alt="">
+        </div>
+        <div class="pc-overlay"></div>
+        <div class="pc-info"><p class="pc-cat">Brand Identity</p><p class="pc-name">MAISON NOIRE</p></div>
+        <div class="pc-dots"><span class="on"></span><span></span><span></span><span></span></div>
+      </div>
+      <!-- 2 -->
+      <div class="pc">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=80&auto=format&fit=crop" class="on" alt="">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80&auto=format&fit=crop" alt="">
+        </div>
+        <div class="pc-overlay"></div>
+        <div class="pc-info"><p class="pc-cat">Packaging + F&amp;B</p><p class="pc-name">OBLIQUE COFFEE</p></div>
+        <div class="pc-dots"><span class="on"></span><span></span><span></span><span></span></div>
+      </div>
+      <!-- 3 -->
+      <div class="pc pc-hidden">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=80&auto=format&fit=crop" class="on" alt="">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=900&q=80&auto=format&fit=crop" alt="">
+        </div>
+        <div class="pc-overlay"></div>
+        <div class="pc-info"><p class="pc-cat">Art Direction</p><p class="pc-name">AURA INTERIORS</p></div>
+        <div class="pc-dots"><span class="on"></span><span></span><span></span><span></span></div>
+      </div>
+      <!-- 4 -->
+      <div class="pc pc-hidden">
+        <div class="img-wrap">
+          <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=900&q=80&auto=format&fit=crop" class="on" alt="">
+          <img src="https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=900&q=80&auto=format&fit=crop" alt="">
+          <img src="https://images.unsplash.com/photo-1614849286521-4c58b2f0ff15?w=900&q=80&auto=format&fit=crop" alt="">
+        </div>
+        <div class="pc-overlay"></div>
+        <div class="pc-info"><p class="pc-cat">Creative Direction</p><p class="pc-name">FORMA COLLECTIVE</p></div>
+        <div class="pc-dots"><span class="on"></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+    <div class="work-more-row">
+      <button class="work-more-btn" id="work-more-btn" aria-label="Show more projects">+</button>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="cs">
+  <div class="cs-head" onclick="toggle(this)">
+    <h2 class="cs-title">ABOUT</h2>
+    <button class="tog" aria-expanded="false">+</button>
+  </div>
+  <div class="cs-body">
+    <div class="about-inner">
+      <div class="story">
+        <span class="story-lbl">Studio 91</span>
+        <h3 class="story-h">INDEPENDENT.<br>INTERNATIONAL.<br>IN DETAIL.</h3>
+        <p class="story-p">
+          Studio 91 is an independent brand design practice led by Naiwen Chang,
+          shaped by diverse international experience.<br><br>
+          We craft distinctive identities and visual worlds for lifestyle, F&amp;B,
+          and cultural brands — always with a glocal perspective and a playful creative edge.
+        </p>
+        <div class="story-tags">
+          <span>Brand Identity</span>
+          <span>Packaging</span>
+          <span>Creative Direction</span>
+          <span>Digital Content</span>
+          <span>Brand Strategy</span>
+        </div>
+        <p class="story-loc">📍 Based in Shanghai &amp; Taipei</p>
+      </div>
+      <div class="globe-wrap">
+        <canvas id="globe" width="380" height="380"></canvas>
+        <p class="globe-cap">Paris · Shanghai · Taipei</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="cs">
+  <div class="cs-head" onclick="toggle(this)">
+    <h2 class="cs-title">CONTACT</h2>
+    <button class="tog" aria-expanded="false">+</button>
+  </div>
+  <div class="cs-body">
+    <div class="ct-bar">
+      <h2>START A PROJECT.</h2>
+      <p class="ct-sub">You don't need a perfect brief.<br>A rough idea and a real project is enough.</p>
+    </div>
+    <div class="ct-form-wrap">
+      <form class="ct-form" id="ct-form">
+        <div class="ff"><label>Name *</label><input type="text" name="name" placeholder="Your name" required></div>
+        <div class="ff"><label>Email *</label><input type="email" name="email" placeholder="you@example.com" required></div>
+        <div class="ff"><label>Brand / Company</label><input type="text" name="company" placeholder="Optional"></div>
+        <div class="ff">
+          <label>Project Type *</label>
+          <select name="projectType" required>
+            <option value="" disabled selected>Select a type</option>
+            <option>Brand Identity</option><option>Packaging</option>
+            <option>Creative Direction</option><option>Digital Content</option>
+            <option>Brand Strategy</option><option>Other</option>
+          </select>
+        </div>
+        <div class="ff">
+          <label>Budget Range *</label>
+          <select name="budget" required>
+            <option value="" disabled selected>Select a range</option>
+            <option>Under $1,000</option><option>$1,000 – $3,000</option>
+            <option>$3,000 – $5,000</option><option>$5,000 – $10,000</option>
+            <option>$10,000+</option>
+          </select>
+        </div>
+        <div class="ff">
+          <label>Timeline</label>
+          <select name="timeline">
+            <option value="" disabled selected>When do you need this?</option>
+            <option>ASAP</option><option>1 – 2 months</option>
+            <option>2 – 4 months</option><option>4+ months</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="ff full">
+          <label>Brief *</label>
+          <textarea name="brief" rows="5" placeholder="Tell us about your project, your brand, and what you're after." required></textarea>
+        </div>
+        <div class="ct-submit-row">
+          <p class="ct-note">Responses within <a href="mailto:naiwen1991@gmail.com">48 hours</a>.</p>
+          <button type="submit" class="ct-btn" id="ct-btn">Send it →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="ft-logo">STUDIO 91</a>
+  <p class="ft-copy">© 2026 Studio 91. All rights reserved.</p>
+  <div class="ft-links">
+    <a href="https://www.instagram.com/studio_nineone" target="_blank" rel="noopener">Instagram</a>
+    <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// Select placeholder color — orange until user picks, then black
+document.querySelectorAll('.ff select').forEach(sel => {
+  sel.addEventListener('change', () => sel.classList.add('chosen'));
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Collapse / Expand — all sections start closed (max-height: 0 via CSS)
+
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const btn  = header.querySelector('.tog');
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  if (open) {
+    body.style.transition = 'max-height .55s cubic-bezier(0.19,1,0.22,1)';
+    body.style.maxHeight = '0px';
+    btn.textContent = '+';
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    body.style.transition = 'max-height .55s cubic-bezier(0.19,1,0.22,1)';
+    body.style.maxHeight = body.scrollHeight + 'px';
+    btn.textContent = '−';
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+// Project image cycling
+// Show More / Show Less for work grid
+(function(){
+  const btn = document.getElementById('work-more-btn');
+  const hidden = document.querySelectorAll('.pc.pc-hidden');
+  const workBody = document.getElementById('work-body');
+  let expanded = false;
+  btn.addEventListener('click', () => {
+    expanded = !expanded;
+    hidden.forEach(c => {
+      if (expanded) c.classList.remove('pc-hidden');
+      else c.classList.add('pc-hidden');
+    });
+    // Re-measure and update max-height so the section expands in flow
+    workBody.style.maxHeight = 'none';
+    requestAnimationFrame(() => {
+      workBody.style.maxHeight = workBody.scrollHeight + 'px';
+    });
+    btn.textContent = expanded ? '−' : '+';
+  });
+})();
+
+document.querySelectorAll('.pc').forEach(card => {
+  const imgs = card.querySelectorAll('.img-wrap img');
+  const dots = card.querySelectorAll('.pc-dots span');
+  let idx = 0, timer = null;
+  function show(n) {
+    imgs[idx].classList.remove('on');
+    dots[idx].classList.remove('on');
+    idx = n % imgs.length;
+    imgs[idx].classList.add('on');
+    dots[idx].classList.add('on');
+  }
+  card.addEventListener('mouseenter', () => { timer = setInterval(() => show(idx + 1), 650); });
+  card.addEventListener('mouseleave', () => { clearInterval(timer); show(0); });
+});
+
+// Form submit
+document.getElementById('ct-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = document.getElementById('ct-btn');
+  btn.textContent = 'MESSAGE SENT ✓';
+  btn.classList.add('sent');
+  btn.disabled = true;
+});
+
+// Globe — replaced inline below via module script
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2, R = W * 0.42;
+</script>
+<script type="module">
+import createGlobe from 'https://cdn.jsdelivr.net/npm/cobe@0.6.3/+esm';
+const canvas = document.getElementById('globe');
+let phi = 0;
+let width = 0;
+
+const onResize = () => { if (canvas) width = canvas.offsetWidth; };
+window.addEventListener('resize', onResize);
+onResize();
+
+const globe = createGlobe(canvas, {
+  devicePixelRatio: 2,
+  width: width * 2,
+  height: width * 2,
+  phi: 0,
+  theta: 0.3,
+  dark: 0,
+  diffuse: 0.4,
+  mapSamples: 16000,
+  mapBrightness: 1.2,
+  baseColor: [1, 1, 1],
+  markerColor: [255/255, 90/255, 47/255],
+  glowColor: [1, 1, 1],
+  markers: [
+    { location: [48.8566, 2.3522],   size: 0.07 }, // Paris
+    { location: [31.2304, 121.4737], size: 0.07 }, // Shanghai
+    { location: [25.0330, 121.5654], size: 0.07 }, // Taipei
+  ],
+  onRender(state) {
+    phi += 0.005;
+    state.phi = phi;
+    state.width  = width * 2;
+    state.height = width * 2;
+  }
+});
+
+setTimeout(() => canvas.style.opacity = '1');
+</script>
+</body>
+</html>
