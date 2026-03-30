@@ -15,14 +15,14 @@ const collaborators = [
 
 export default function Testimonials() {
   return (
-    <div className="border-b border-stone-100 bg-white py-7">
-      <InfiniteSlider gap={72} duration={50} durationOnHover={100} className="w-full">
+    <div className="border-b border-stone-100 bg-white py-5">
+      <InfiniteSlider gap={88} duration={50} durationOnHover={100} className="w-full">
         {collaborators.map((item) => (
-          <div key={item.label} className="flex shrink-0 items-center gap-16">
-            <span className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-stone-400 transition-colors duration-300 hover:text-stone-700">
+          <div key={item.label} className="flex shrink-0 items-center gap-20">
+            <span className="font-display text-base font-semibold uppercase tracking-[0.18em] text-stone-400 transition-colors duration-300 hover:text-stone-700">
               {item.label}
             </span>
-            <span className="select-none text-xs text-stone-200">·</span>
+            <span className="select-none text-sm text-stone-200">·</span>
           </div>
         ))}
       </InfiniteSlider>

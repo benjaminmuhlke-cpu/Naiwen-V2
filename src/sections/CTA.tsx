@@ -14,7 +14,7 @@ const projectTypes = [
 ];
 
 const inputClass =
-  'w-full border border-stone-200 bg-[#f5f5f5] px-4 py-3 text-sm text-stone-900 outline-none transition-colors duration-200 placeholder:text-[#FF642B] focus:border-stone-950 focus:bg-white';
+  'w-full border border-stone-200 bg-[#f5f5f5] px-4 py-3 font-sans text-sm text-stone-900 outline-none transition-colors duration-200 placeholder:text-stone-400 focus:border-stone-950 focus:bg-white';
 
 export default function CTA() {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export default function CTA() {
     <section
       ref={ref}
       id="contact"
-      className="bg-white px-8 py-24 md:px-14 md:py-32 lg:px-20"
+      className="bg-white px-8 pb-8 pt-16 md:px-14 md:pb-10 md:pt-20 lg:px-20"
     >
       <div className="mx-auto max-w-screen-xl">
         <motion.div
@@ -78,6 +78,14 @@ export default function CTA() {
               We'll respond within{' '}
               <span className="font-semibold text-stone-800">48 hours</span>.
             </motion.p>
+
+            <motion.a
+              variants={fadeUp}
+              href="mailto:naiwen1991@gmail.com"
+              className="font-display text-[1.35rem] font-bold tracking-[-0.02em] text-stone-950 transition-colors duration-300 hover:text-[#FF642B] md:text-[1.6rem]"
+            >
+              naiwen1991@gmail.com
+            </motion.a>
           </div>
 
           {/* Right — form */}
