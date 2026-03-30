@@ -1,130 +1,70 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { fadeUp, staggerContainer, lineReveal } from '../lib/motion';
-
-const disciplines = [
-  'Branding',
-  'Strategy',
-  'Identity Systems',
-  'Art Direction',
-  'Campaigns',
-  'Digital',
-];
-
-const journey = [
-  {
-    year: '2020',
-    detail:
-      'Studio91 was established in London with an early focus on brand identity, visual language, and highly considered execution for emerging businesses.',
-  },
-  {
-    year: '2021',
-    detail:
-      'The studio expanded into strategy and positioning, with early international mandates and more packaging and art direction work.',
-  },
-  {
-    year: '2022',
-    detail:
-      'Identity systems, campaigns, and digital experiences became a more visible part of the offer as the studio matured.',
-  },
-  {
-    year: '2023 - Today',
-    detail:
-      'Studio91 now works across multiple sectors with partners in several regions, balancing clarity, premium positioning, and practical execution.',
-  },
-];
+import { fadeUp, staggerContainer } from '../lib/motion';
+import { Globe } from '../components/ui/globe';
 
 export default function Intro() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.25 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <section
       ref={ref}
       id="about"
-      className="overflow-hidden bg-stone-900 px-6 py-28 text-stone-50 md:px-10 md:py-40 lg:px-16"
+      className="overflow-hidden bg-white px-8 py-24 md:px-14 md:py-32 lg:px-20"
     >
       <div className="mx-auto max-w-screen-xl">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-8"
-        >
-          <motion.div variants={fadeUp} className="flex flex-col justify-start pt-2 md:col-span-3">
-            <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-400">
-              About
-            </p>
-            <motion.div variants={lineReveal} className="mt-4 h-px w-12 bg-stone-700" />
-          </motion.div>
-
-          <div className="flex flex-col gap-10 md:col-span-9">
-            <motion.p
-              variants={fadeUp}
-              className="font-display max-w-4xl text-[clamp(2rem,4.4vw,3.75rem)] font-semibold leading-[1.08] tracking-[-0.05em] text-stone-50"
-            >
-              Studio91 is a creative studio for brands that need to look
-              credible, feel intentional, and communicate value from the first
-              interaction.
-            </motion.p>
-
-            <motion.p
-              variants={fadeUp}
-              className="max-w-2xl text-base leading-relaxed text-stone-400 md:text-lg"
-            >
-              We work with founders, studios, and growing businesses at key
-              moments: launches, repositioning, offer refinement, and digital
-              presence upgrades. The aim is always the same: make the brand
-              feel clear, premium, and easy to trust.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-2 flex flex-wrap gap-3">
-              {disciplines.map((discipline) => (
-                <span
-                  key={discipline}
-                  className="cursor-default border border-stone-700 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-stone-300 transition-colors duration-300 hover:border-[#FF642B] hover:text-[#FF9A76]"
-                >
-                  {discipline}
-                </span>
-              ))}
+        <div className="grid grid-cols-1 items-center gap-16 md:grid-cols-2 md:gap-12">
+          {/* Left — text */}
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="flex flex-col gap-7"
+          >
+            <motion.div variants={fadeUp} className="flex flex-col gap-2">
+              <p className="text-xs font-bold uppercase tracking-[0.28em] text-stone-400">
+                About
+              </p>
+              <div className="h-px w-10 bg-[#FF642B]" />
             </motion.div>
 
-            <motion.details
+            <motion.h2
               variants={fadeUp}
-              className="group mt-4 rounded-3xl border border-stone-800 bg-stone-950/50 p-6"
+              className="font-display text-[clamp(2.2rem,4.8vw,4.25rem)] font-bold uppercase leading-[1.02] tracking-[-0.04em] text-stone-950"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500">
-                    Background
-                  </p>
-                  <p className="mt-2 font-display text-2xl font-semibold tracking-[-0.04em] text-stone-50">
-                    Read the studio story
-                  </p>
-                </div>
-                <span className="rounded-full border border-stone-700 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em] text-stone-300 transition-colors duration-300 group-hover:border-[#FF642B] group-hover:text-[#FF642B]">
-                  Expand
-                </span>
-              </summary>
+              Independent.
+              <br />
+              International.
+              <br />
+              Detail-driven.
+            </motion.h2>
 
-              <div className="mt-6 grid gap-4 border-t border-stone-800 pt-6 md:grid-cols-2">
-                {journey.map((item) => (
-                  <div
-                    key={item.year}
-                    className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5"
-                  >
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#FF9A76]">
-                      {item.year}
-                    </p>
-                    <p className="mt-3 text-sm leading-7 text-stone-300">
-                      {item.detail}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </motion.details>
+            <motion.p
+              variants={fadeUp}
+              className="max-w-lg text-base leading-relaxed text-stone-500"
+            >
+              We craft distinctive identities and visual worlds for lifestyle,
+              fashion, and culture brands globally. Our approach is collaborative,
+              intentional, and quality-focused.
+            </motion.p>
+
+            <motion.a
+              variants={fadeUp}
+              href="#contact"
+              className="group inline-flex items-center gap-3 self-start bg-[#FF642B] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-stone-950"
+            >
+              Start a project
+              <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            </motion.a>
+          </motion.div>
+
+          {/* Right — globe */}
+          <div className="relative hidden h-[480px] items-center justify-center md:flex">
+            <div className="pointer-events-none absolute inset-0 z-10 [background:radial-gradient(ellipse_60%_60%_at_50%_50%,transparent_40%,white_100%)]" />
+            <Globe className="top-1/2 max-w-[440px] -translate-y-1/2" />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

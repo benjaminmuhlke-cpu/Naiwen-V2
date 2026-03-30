@@ -13,11 +13,10 @@
     --primary: 24 9.8% 10%;
     --primary-foreground: 60 9.1% 97.8%;
     --accent: 18 100% 58%;
-    --radius: 0.25rem;
+    --radius: 0rem;
   }
 
   * {
-    @apply border-stone-200;
     box-sizing: border-box;
   }
 
@@ -28,7 +27,8 @@
   }
 
   body {
-    @apply bg-stone-50 text-stone-900;
+    background-color: #ffffff;
+    color: #0c0a09;
     font-family: "America", Helvetica, Arial, sans-serif;
     font-weight: 300;
     line-height: 1.2;
@@ -42,6 +42,14 @@
   summary::-webkit-details-marker {
     display: none;
   }
+
+  /* Consistent border-radius reset for form elements */
+  input,
+  textarea,
+  select,
+  button {
+    border-radius: 0;
+  }
 }
 
 @layer utilities {
@@ -50,8 +58,8 @@
   }
 
   .font-logo {
-    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-      monospace;
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      'Liberation Mono', 'Courier New', monospace;
   }
 
   .text-balance {

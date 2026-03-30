@@ -1,7 +1,7 @@
 import Header from './sections/Header';
 import Hero from './sections/Hero';
-import ProjectShowcase from './sections/ProjectShowcase';
 import Testimonials from './sections/Testimonials';
+import ProjectShowcase from './sections/ProjectShowcase';
 import Intro from './sections/Intro';
 import GlobalReach from './sections/GlobalReach';
 import CTA from './sections/CTA';
@@ -12,8 +12,8 @@ export default function App() {
     <main className="relative">
       <Header />
       <Hero />
-      <ProjectShowcase />
       <Testimonials />
+      <ProjectShowcase />
       <Intro />
       <GlobalReach />
       <CTA />
