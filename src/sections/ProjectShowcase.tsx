@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type Project = {
   category: string;
   title: string;
+  slug: string;
   images: string[];
 };
 
@@ -10,6 +12,7 @@ const projects: Project[] = [
   {
     title: 'Maison None',
     category: 'Brand Identity',
+    slug: 'maison-none',
     images: [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=80&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&q=80&auto=format&fit=crop',
@@ -19,6 +22,7 @@ const projects: Project[] = [
   {
     title: 'Clouce Coffee',
     category: 'Branding & Packaging',
+    slug: 'clouce-coffee',
     images: [
       'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&q=80&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80&auto=format&fit=crop',
@@ -28,6 +32,7 @@ const projects: Project[] = [
   {
     title: 'Aesop',
     category: 'Editorial Design',
+    slug: 'aesop',
     images: [
       'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1400&q=80&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1400&q=80&auto=format&fit=crop',
@@ -37,6 +42,7 @@ const projects: Project[] = [
   {
     title: 'Forma Studio',
     category: 'Visual Identity',
+    slug: 'forma-studio',
     images: [
       'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1400&q=80&auto=format&fit=crop',
@@ -56,54 +62,56 @@ function ProjectCard({ project }: { project: Project }) {
   }, [project.images.length]);
 
   return (
-    <div
-      className="group relative overflow-hidden bg-stone-200"
-      style={{ height: 'clamp(380px, calc(100vh - 220px), 900px)' }}
-    >
-      {/* Slides */}
-      {project.images.map((src, i) => (
-        <img
-          key={src}
-          src={src}
-          alt={`${project.title} ${i + 1}`}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{
-            opacity: i === active ? 1 : 0,
-            transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-        />
-      ))}
-
-      {/* Overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-stone-950/25 transition-opacity duration-300 group-hover:bg-stone-950/40" />
-
-      {/* Title + category */}
-      <div className="absolute bottom-0 left-0 p-6 md:p-8">
-        <p className="font-display text-lg font-bold uppercase leading-tight tracking-[-0.01em] text-white md:text-xl">
-          {project.title}
-        </p>
-        <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">
-          {project.category}
-        </p>
-      </div>
-
-      {/* Dot indicators — bottom center */}
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-row items-center gap-2">
-        {project.images.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            className="h-2 w-2 rounded-full transition-all duration-500"
+    <Link to={`/projects/${project.slug}`} className="block">
+      <div
+        className="group relative cursor-pointer overflow-hidden bg-stone-200"
+        style={{ height: 'clamp(380px, calc(100vh - 220px), 900px)' }}
+      >
+        {/* Slides */}
+        {project.images.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${project.title} ${i + 1}`}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
             style={{
-              backgroundColor: i === active ? '#ffffff' : 'rgba(200,200,200,0.55)',
-              transform: i === active ? 'scale(1.4)' : 'scale(1)',
+              opacity: i === active ? 1 : 0,
+              transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-            aria-label={`Show image ${i + 1}`}
           />
         ))}
+
+        {/* Overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-stone-950/25 transition-opacity duration-300 group-hover:bg-stone-950/45" />
+
+        {/* Title + category */}
+        <div className="absolute bottom-0 left-0 p-6 md:p-8">
+          <p className="font-display text-lg font-bold uppercase leading-tight tracking-[-0.01em] text-white md:text-xl">
+            {project.title}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">
+            {project.category}
+          </p>
+        </div>
+
+        {/* Dot indicators — bottom center */}
+        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-row items-center gap-2">
+          {project.images.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => { e.preventDefault(); setActive(i); }}
+              className="h-2 w-2 rounded-full transition-all duration-500"
+              style={{
+                backgroundColor: i === active ? '#ffffff' : 'rgba(200,200,200,0.55)',
+                transform: i === active ? 'scale(1.4)' : 'scale(1)',
+              }}
+              aria-label={`Show image ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
