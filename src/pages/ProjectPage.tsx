@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
@@ -179,7 +179,6 @@ function Marquee() {
 
 export default function ProjectPage() {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
   const project = slug ? projectMap[slug] : null;
   const nextProject = project ? projectMap[project.next] : null;
   const [onDark, setOnDark] = useState(true);
@@ -216,12 +215,12 @@ export default function ProjectPage() {
         >
           Studio 91
         </Link>
-        <button
-          onClick={() => navigate(-1)}
+        <a
+          href="/#work"
           className={`flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${onDark ? 'text-white/80 hover:text-white' : 'text-[#FF642B]/80 hover:text-[#FF642B]'}`}
         >
-          <ArrowLeft size={13} /> All Work
-        </button>
+          <ArrowLeft size={13} /> All Recent Projects
+        </a>
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────── */}
@@ -290,39 +289,18 @@ export default function ProjectPage() {
         </Reveal>
       </section>
 
-      {/* ── FULL-WIDTH IMAGE ─────────────────────────────────── */}
+      {/* ── 1. BIG HORIZONTAL IMAGE ──────────────────────────── */}
       <Reveal className="px-8 py-4 md:px-14 lg:px-20">
         <div className="mx-auto max-w-screen-xl overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
           <img src={project.images[0]} alt="Project overview" className="h-full w-full object-cover" />
         </div>
       </Reveal>
 
-      {/* ── TWO-COL PORTRAIT IMAGES ──────────────────────────── */}
+      {/* ── 2. LEFT IMAGE + RIGHT TEXT ───────────────────────── */}
       <Reveal className="px-8 py-4 md:px-14 lg:px-20">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
             <img src={project.images[1]} alt="" className="h-full w-full object-cover" />
-          </div>
-          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
-            <img src={project.images[2]} alt="" className="h-full w-full object-cover" />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* ── CAPTIONED IMAGE ──────────────────────────────────── */}
-      <Reveal className="px-8 py-4 md:px-14 lg:px-20">
-        <div className="mx-auto max-w-screen-xl">
-          <div className="w-full overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
-            <img src={project.images[3]} alt="" className="h-full w-full object-cover" />
-          </div>
-        </div>
-      </Reveal>
-
-      {/* ── FINAL ROW: image + text ───────────────────────────── */}
-      <Reveal className="px-8 py-4 pb-16 md:px-14 md:pb-24 lg:px-20">
-        <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
-            <img src={project.images[4]} alt="" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col justify-center bg-stone-950 px-10 py-16 md:px-14" style={{ height: '100vh' }}>
             <p className="mb-6 text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#FF642B]">Behind the work</p>
@@ -331,6 +309,25 @@ export default function ProjectPage() {
             </h3>
             <p className="mb-4 leading-relaxed text-stone-400">{project.closingText1}</p>
             <p className="leading-relaxed text-stone-400">{project.closingText2}</p>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* ── 3. BIG HORIZONTAL IMAGE ──────────────────────────── */}
+      <Reveal className="px-8 py-4 md:px-14 lg:px-20">
+        <div className="mx-auto max-w-screen-xl overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+          <img src={project.images[2]} alt="" className="h-full w-full object-cover" />
+        </div>
+      </Reveal>
+
+      {/* ── 4. TWO IMAGES SIDE BY SIDE ───────────────────────── */}
+      <Reveal className="px-8 py-4 pb-16 md:px-14 md:pb-24 lg:px-20">
+        <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+            <img src={project.images[3]} alt="" className="h-full w-full object-cover" />
+          </div>
+          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+            <img src={project.images[4]} alt="" className="h-full w-full object-cover" />
           </div>
         </div>
       </Reveal>
@@ -360,9 +357,9 @@ export default function ProjectPage() {
       {/* ── FOOTER ──────────────────────────────────────────── */}
       <footer className="flex items-center justify-between border-t border-stone-200 bg-stone-50 px-8 py-6 md:px-14 lg:px-20">
         <span className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-stone-400">© {new Date().getFullYear()} Studio 91</span>
-        <Link to="/" className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-stone-400 transition-colors duration-200 hover:text-stone-900">
-          Back to Home
-        </Link>
+        <a href="/#work" className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-stone-400 transition-colors duration-200 hover:text-stone-900">
+          All Recent Projects
+        </a>
       </footer>
 
     </div>

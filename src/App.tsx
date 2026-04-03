@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Header from './sections/Header';
 import Hero from './sections/Hero';
@@ -7,8 +8,19 @@ import Intro from './sections/Intro';
 import CTA from './sections/CTA';
 import Footer from './sections/Footer';
 import ProjectPage from './pages/ProjectPage';
+import LoadingScreen from './components/LoadingScreen';
 
 function Home() {
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    // Wait for the page to fully render before scrolling
+    const timer = setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <main className="relative">
       <Header />
@@ -28,5 +40,10 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <LoadingScreen />
+      <RouterProvider router={router} />
+    </>
+  );
 }
