@@ -1,135 +1,202 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ArrowDownRight } from 'lucide-react';
-import { TextScramble } from '../components/ui/text-scramble';
-import { fadeUp, staggerContainer } from '../lib/motion';
+import { useInView } from 'framer-motion';
+
 
 const stats = [
-  { value: '60+', label: 'Projects Delivered' },
-  { value: '14', label: 'Industry Sectors' },
-  { value: '8', label: 'Years of Practice' },
+  {
+    value: 10,
+    suffix: '+',
+    label: 'Years',
+    description: 'Across branding, packaging, and visual systems.',
+  },
+  {
+    value: 150,
+    suffix: '+',
+    label: 'Projects',
+    description: 'Across branding, packaging, and real-world application.',
+  },
+  {
+    value: null,
+    suffix: 'PERSPECTIVE',
+    label: 'GLOCAL',
+    description: 'Working between Asian and international markets, translating across different cultural contexts.',
+  },
 ];
 
-export default function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [scrambleTrigger, setScrambleTrigger] = useState(false);
-  const [scrambleTriggerSecond, setScrambleTriggerSecond] = useState(false);
+function useCountUp(target: number, active: boolean, duration = 1800) {
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setScrambleTrigger(true), 600);
-    const timerSecond = setTimeout(() => setScrambleTriggerSecond(true), 760);
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(timerSecond);
+    if (!active) return;
+    let start: number | null = null;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      // ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
     };
-  }, []);
+    requestAnimationFrame(step);
+  }, [active, target, duration]);
+
+  return count;
+}
+
+function GlocalAnimation({ active }: { active: boolean }) {
+  const [display, setDisplay] = useState('\u00A0'); // non-breaking space keeps height
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!active || hasRun.current) return;
+    hasRun.current = true;
+
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const add = (fn: () => void, ms: number) =>
+      timers.push(setTimeout(fn, ms));
+
+    // Timings tuned so GLOCAL finishes at ~1800ms (same as number count-up):
+    // type GLOBAL(6×55) + hold(140) + delete(6×42) + gap(25)
+    // + type LOCAL(5×55) + hold(140) + delete(5×42) + gap(25)
+    // + type GLOCAL(6×55) = ~1780ms ✓
+    const TYPE_MS   = 72;
+    const DELETE_MS = 55;
+    const HOLD_MS   = 182;
+    const GAP_MS    = 33;
+
+    let t = 0;
+
+    const typeWord = (word: string) => {
+      for (let i = 1; i <= word.length; i++) {
+        const s = word.slice(0, i);
+        add(() => setDisplay(s), t);
+        t += TYPE_MS;
+      }
+    };
+
+    const deleteWord = (word: string) => {
+      t += HOLD_MS;
+      for (let i = word.length - 1; i >= 0; i--) {
+        const s = i === 0 ? '\u00A0' : word.slice(0, i);
+        add(() => setDisplay(s), t);
+        t += DELETE_MS;
+      }
+      t += GAP_MS;
+    };
+
+    typeWord('GLOBAL');
+    deleteWord('GLOBAL');
+    typeWord('LOCAL');
+    deleteWord('LOCAL');
+    typeWord('GLOCAL'); // final — stays
+
+    return () => timers.forEach(clearTimeout);
+  }, [active]);
 
   return (
-    <section
-      ref={ref}
-      className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-stone-50 px-6 pb-20 pt-32 md:px-10 md:pb-28 lg:px-16"
+    <span
+      className="font-display font-bold tracking-[-0.04em] text-stone-950 leading-none"
+      style={{ fontSize: 'clamp(3.2rem, 7vw, 6.2rem)' }}
     >
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={isInView ? { scaleX: 1 } : {}}
-        transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
-        className="absolute right-0 top-0 h-px w-1/2 origin-right bg-stone-300"
-      />
+      {display}
+    </span>
+  );
+}
 
-      <div className="mx-auto w-full max-w-screen-xl">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="flex flex-col gap-10 md:gap-14"
-        >
-          <div className="flex flex-col gap-4">
-            <motion.div variants={fadeUp}>
-              <TextScramble
-                as="h1"
-                trigger={scrambleTrigger}
-                duration={0.8}
-                speed={0.035}
-                className="font-display max-w-5xl text-[clamp(3.2rem,8vw,7.2rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-stone-950"
-              >
-                Building identities
-              </TextScramble>
-            </motion.div>
+function StatItem({ stat, active, index }: { stat: typeof stats[0]; active: boolean; index: number }) {
+  const count = useCountUp(stat.value ?? 0, active, 2080 + index * 130);
 
-            <motion.div variants={fadeUp}>
-              <TextScramble
-                as="h1"
-                trigger={scrambleTriggerSecond}
-                duration={0.8}
-                speed={0.035}
-                className="font-display max-w-5xl text-[clamp(3.2rem,8vw,7.2rem)] font-semibold leading-[0.92] tracking-[-0.06em] text-stone-950"
-              >
-                that earn trust fast.
-              </TextScramble>
-            </motion.div>
-          </div>
+  return (
+    <div
+      className="flex flex-col gap-0 py-10 text-center md:py-14"
+      style={{
+        opacity: active ? 1 : 0,
+        transform: active ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity 0.7s ease ${index * 0.12}s, transform 0.7s ease ${index * 0.12}s`,
+      }}
+    >
+      {/* Big number + suffix — fixed minHeight so YEARS/PROJECTS/PERSPECTIVE all sit at same y */}
+      <div
+        className="flex items-end justify-center leading-none"
+        style={{ minHeight: 'clamp(3.5rem, 8vw, 7rem)' }}
+      >
+        {stat.value !== null ? (
+          <>
+            <span className="font-display text-[clamp(3.5rem,8vw,7rem)] font-bold tracking-[-0.04em] text-stone-950">
+              {count}
+            </span>
+            <span className="self-start font-display text-[clamp(1.5rem,3.5vw,3rem)] font-bold tracking-[-0.02em] text-stone-950">
+              {stat.suffix}
+            </span>
+          </>
+        ) : (
+          <GlocalAnimation active={active} />
+        )}
+      </div>
 
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-col justify-between gap-8 md:flex-row md:items-end"
-          >
-            <p className="max-w-lg text-base leading-relaxed text-stone-500 md:text-lg">
-              Studio91 shapes clear, credible brands for founders and growing
-              businesses across identity, digital presence, and launch
-              materials, with a focus on work that feels premium from day one.
-            </p>
+      {/* Divider */}
+      <div className="mb-2 mt-1.5" />
 
-            <div className="flex items-center gap-5 shrink-0">
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-[#e55720]"
-                style={{ backgroundColor: '#FF642B' }}
-              >
-                Start A Project
-                <ArrowDownRight
-                  size={14}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
-                />
-              </a>
-              <a
-                href="#about"
-                className="text-sm font-medium uppercase tracking-[0.14em] text-stone-600 underline decoration-stone-300 underline-offset-4 transition-colors duration-300 hover:text-[#FF642B] hover:decoration-[#FF642B]"
-              >
-                About Studio91
-              </a>
-            </div>
-          </motion.div>
-        </motion.div>
+      {/* Label — for numeric stats show the label; for text stats show the suffix as sublabel */}
+      <p className="mb-1 text-sm font-bold uppercase tracking-[0.18em] text-stone-950 md:text-base">
+        {stat.value !== null ? stat.label : stat.suffix}
+      </p>
 
-        <motion.div
-          initial={{ scaleX: 0, originX: 0 }}
-          animate={isInView ? { scaleX: 1 } : {}}
-          transition={{ duration: 1.4, ease: [0.19, 1, 0.22, 1], delay: 0.6 }}
-          className="mt-16 h-px w-full bg-stone-200"
-        />
+      {/* Description */}
+      <p className="mx-auto max-w-xs text-sm leading-relaxed text-stone-400 md:mx-auto">
+        {stat.description}
+      </p>
+    </div>
+  );
+}
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="mt-8 flex flex-wrap justify-center gap-12 md:gap-20"
-        >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex min-w-[160px] flex-col items-center gap-1 text-center"
+export default function Hero() {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(statsRef, { once: true, amount: 0.2 });
+
+  return (
+    <section className="relative flex flex-col">
+      {/* Split hero — exactly fills the viewport */}
+      <div className="flex flex-col md:flex-row h-svh">
+        {/* Left — orange panel */}
+        <div className="relative flex flex-col justify-center bg-[#FF642B] px-8 pb-6 pt-14 md:w-[42%] md:px-14 md:pb-8 md:pt-16 lg:px-20">
+          <div className="flex flex-col gap-5">
+            <h1 className="font-display text-[clamp(2rem,4vw,4rem)] font-bold uppercase leading-[0.88] tracking-[-0.03em] text-stone-950">
+              BRANDS BUILT TO BE FELT AND REMEMBERED.
+            </h1>
+            <p className="max-w-sm text-sm font-medium leading-relaxed text-stone-900/70 md:text-base">
+              Branding, packaging, and creative direction for F&B, lifestyle, and culture-led brands, built with a clear point of view and designed to work in real situations.  </p>
+            <a
+              href="#contact"
+              className="inline-flex self-start items-center bg-stone-950 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-stone-950"
             >
-              <span className="font-display text-3xl font-semibold tracking-[-0.05em] text-stone-950 md:text-4xl">
-                {stat.value}
-              </span>
-              <span className="text-xs font-medium uppercase tracking-[0.18em] text-stone-400">
-                {stat.label}
-              </span>
+              Start a Project
+            </a>
+          </div>
+        </div>
+
+        {/* Right — editorial image, full bleed to bottom of viewport */}
+        <div className="relative flex-1 bg-stone-900 md:w-[58%]">
+          <img
+            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1800&q=90&auto=format&fit=crop"
+            alt="Editorial portrait representing Studio 91's aesthetic — refined, minimal, culture-led"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-stone-950/10" />
+        </div>
+      </div>
+
+      {/* Stats strip */}
+      <aside aria-label="Studio 91 at a glance" ref={statsRef} className="border-t border-stone-200 bg-white">
+        <dl className="grid grid-cols-1 gap-0 px-6 md:grid-cols-3 md:px-8 lg:px-12">
+          {stats.map((stat, i) => (
+            <div key={stat.label} className="">
+
+              <StatItem stat={stat} active={isInView} index={i} />
             </div>
           ))}
-        </motion.div>
-      </div>
+        </dl>
+      </aside>
     </section>
   );
 }

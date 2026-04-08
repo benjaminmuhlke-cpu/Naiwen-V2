@@ -2,45 +2,69 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Menu } from 'lucide-react';
 
-const navLinks = ['About', 'Reach', 'Contact'];
+const navLinks = ['Work', 'About', 'Contact'];
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [light, setLight] = useState(true); // true = white text, false = dark text
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    const darkSections = ['about']; // section ids with dark backgrounds
+
+    const update = () => {
+      const headerMid = 36; // vertical midpoint of the 72px header
+
+      // Over hero?
+      if (window.scrollY < window.innerHeight - 80) {
+        setLight(true);
+        return;
+      }
+
+      // Over a dark-bg section?
+      for (const id of darkSections) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const { top, bottom } = el.getBoundingClientRect();
+        if (top <= headerMid && bottom >= headerMid) {
+          setLight(true);
+          return;
+        }
+      }
+
+      setLight(false);
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
+
+  const linkColor = light
+    ? 'text-white/80 hover:text-white'
+    : 'text-stone-950/70 hover:text-stone-950';
+
+  const iconColor = light ? 'text-white' : 'text-stone-950';
 
   return (
     <>
-      <motion.header
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'border-b border-stone-200 bg-stone-50/90 backdrop-blur-md'
-            : 'bg-transparent'
-        }`}
-      >
-        <div className="mx-auto max-w-screen-xl px-6 md:px-10 lg:px-16">
-          <div className="flex h-16 items-center justify-between md:h-20">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-14 lg:px-20">
+        <div className="mx-auto max-w-screen-xl">
+          <div className="flex h-16 items-center justify-between md:h-[72px]">
             <a
-              href="#"
-              className="font-logo text-xl font-bold tracking-[-0.02em] text-[#FF642B] transition-opacity duration-300 hover:opacity-80 md:text-2xl"
+              href="/"
+              aria-label="Studio 91 — Back to homepage"
+              className={`font-logo text-base font-bold uppercase tracking-[0.12em] transition-colors duration-500 hover:opacity-75 ${light ? 'text-white' : 'text-[#FF642B]'}`}
             >
-              Studio91
+              Studio 91
             </a>
 
-            <nav className="hidden items-center gap-10 md:flex">
+            <nav aria-label="Main navigation" className="hidden items-center gap-10 md:flex">
               {navLinks.map((link) => (
                 <a
                   key={link}
                   href={`#${link.toLowerCase()}`}
-                  className="group relative text-sm font-medium uppercase tracking-[0.16em] text-stone-500 transition-colors duration-300 hover:text-stone-950"
+                  aria-label={`Navigate to ${link} section`}
+                  className={`group relative text-xs font-semibold uppercase tracking-[0.2em] transition-colors duration-500 ${linkColor}`}
                 >
                   {link}
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#FF642B] transition-all duration-300 ease-out group-hover:w-full" />
@@ -48,18 +72,8 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-4 md:flex">
-              <a
-                href="#contact"
-                className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-white transition-colors duration-300 hover:bg-[#e55720]"
-                style={{ backgroundColor: '#FF642B' }}
-              >
-                Let's Talk
-              </a>
-            </div>
-
             <button
-              className="p-1 text-stone-900 md:hidden"
+              className={`p-1 transition-colors duration-500 md:hidden ${iconColor}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -67,7 +81,7 @@ export default function Header() {
             </button>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {menuOpen && (
@@ -76,9 +90,9 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-            className="fixed inset-0 z-40 flex flex-col bg-stone-50 px-8 pt-20 md:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-stone-950 px-8 pt-20 md:hidden"
           >
-            <nav className="mt-8 flex flex-col gap-8">
+            <nav aria-label="Mobile navigation" className="mt-8 flex flex-col gap-8">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link}
@@ -87,7 +101,7 @@ export default function Header() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
                   onClick={() => setMenuOpen(false)}
-                  className="font-display text-4xl font-semibold tracking-[-0.04em] text-stone-950 transition-colors duration-300 hover:text-[#FF642B]"
+                  className="font-display text-4xl font-bold uppercase tracking-[-0.03em] text-white transition-colors duration-300 hover:text-[#FF642B]"
                 >
                   {link}
                 </motion.a>
@@ -98,10 +112,9 @@ export default function Header() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.35, duration: 0.5 }}
                 onClick={() => setMenuOpen(false)}
-                className="mt-4 inline-flex self-start px-8 py-4 text-sm font-medium text-white transition-colors duration-300 hover:bg-[#e55720]"
-                style={{ backgroundColor: '#FF642B' }}
+                className="mt-4 inline-flex self-start bg-[#FF642B] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-stone-950"
               >
-                Let's Talk
+                Start a Project
               </motion.a>
             </nav>
           </motion.div>

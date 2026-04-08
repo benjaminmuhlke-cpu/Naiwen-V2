@@ -1,154 +1,168 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type Project = {
   category: string;
   title: string;
-  image: string;
+  slug: string;
+  images: string[];
 };
 
-const slides: Project[] = [
+const projects: Project[] = [
   {
+    title: 'TAFE BUTTERBEER PASTRY',
+    category: 'Packaging',
+    slug: 'tafe-warner-hp',
+    images: [
+      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1400&q=80&auto=format&fit=crop',
+    ],
+  },
+  {
+    title: 'STARBUCKS',
+    category: 'Limited Edition Packaging',
+    slug: 'starbucks',
+    images: [
+      'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&q=80&auto=format&fit=crop',
+    ],
+  },
+  {
+    title: 'BE-KIND',
+    category: 'Campaign & Packaging',
+    slug: 'be-kind',
+    images: [
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1400&q=80&auto=format&fit=crop',
+    ],
+  },
+  {
+    title: 'YEAH RIGHT',
     category: 'Brand Identity',
-    title: 'Maison Verite',
-    image:
-      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=2000&q=80&auto=format&fit=crop',
+    slug: 'yeah-right',
+    images: [
+      'https://images.unsplash.com/photo-1536329583941-14287ec6fc4e?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80&auto=format&fit=crop',
+    ],
   },
   {
-    category: 'Packaging + Campaign',
-    title: 'Oblique Coffee',
-    image:
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=2000&q=80&auto=format&fit=crop',
+    title: 'ENERGY',
+    category: 'Digital & Motion',
+    slug: 'energy',
+    images: [
+      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1400&q=80&auto=format&fit=crop',
+    ],
   },
   {
-    category: 'Digital Experience',
-    title: 'Forma Collective',
-    image:
-      'https://images.unsplash.com/photo-1494526585095-c41746248156?w=2000&q=80&auto=format&fit=crop',
-  },
-  {
-    category: 'Art Direction',
-    title: 'Aura Interiors',
-    image:
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=2000&q=80&auto=format&fit=crop',
-  },
-  {
-    category: 'Campaign',
-    title: 'Sable FW',
-    image:
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2000&q=80&auto=format&fit=crop',
+    title: 'LA FESTIN',
+    category: 'Brand Identity',
+    slug: 'la-festin',
+    images: [
+      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1400&q=80&auto=format&fit=crop',
+    ],
   },
 ];
 
-const AUTO_ADVANCE_MS = 5000;
-
-export default function ProjectShowcase() {
-  const shouldReduceMotion = useReducedMotion();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const activeIndexRef = useRef(activeIndex);
-  useEffect(() => {
-    activeIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
-  const slideCount = slides.length;
-  const activeSlide = slides[activeIndex];
-
-  const trackStyle = useMemo(() => {
-    return {
-      transform: `translateX(-${activeIndex * 100}%)`,
-      transition: shouldReduceMotion ? 'none' : 'transform 2700ms cubic-bezier(0.19, 1, 0.22, 1)',
-    } as const;
-  }, [activeIndex, shouldReduceMotion]);
+function ProjectCard({ project }: { project: Project }) {
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
-    if (isPaused) return;
-    const id = window.setInterval(() => {
-      setActiveIndex((idx) => (idx + 1) % slideCount);
-    }, AUTO_ADVANCE_MS);
-    return () => window.clearInterval(id);
-  }, [isPaused, shouldReduceMotion, slideCount]);
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % project.images.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [project.images.length]);
 
   return (
-    <section className="bg-stone-50 px-6 py-24 md:px-10 md:py-28 lg:px-16">
-      <div className="mx-auto max-w-screen-xl">
-        <div className="mb-10 flex flex-col gap-4 md:mb-12 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-stone-400">
-              Selected Projects
-            </p>
-            <h2 className="mt-4 text-[clamp(2.1rem,4.6vw,4rem)] font-medium leading-[1] tracking-[-0.04em] text-stone-950">
-              A few projects,
-              <br />
-              shown slowly.
-            </h2>
-          </div>
-          <p className="max-w-md text-base leading-7 text-stone-500">
-            A single image at a time, cycling through selected work.
+    <Link to={`/projects/${project.slug}`} className="block" aria-label={`View ${project.title} — ${project.category} case study`}>
+      <div
+        className="group relative cursor-pointer overflow-hidden bg-stone-200"
+        style={{ height: 'clamp(220px, 38vw, 600px)' }}
+      >
+        {/* Slides */}
+        {project.images.map((src, i) => (
+          <img
+            key={src}
+            src={src}
+            alt={`${project.title} — ${project.category}, image ${i + 1}`}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{
+              opacity: i === active ? 1 : 0,
+              transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
+        ))}
+
+        {/* Overlay */}
+        <div className="pointer-events-none absolute inset-0 bg-stone-950/25 transition-opacity duration-300 group-hover:bg-stone-950/45" />
+
+        {/* Title + category */}
+        <div className="absolute bottom-0 left-0 p-6 md:p-8">
+          <p className="font-display text-lg font-bold uppercase leading-tight tracking-[-0.01em] text-white md:text-xl">
+            {project.title}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">
+            {project.category}
           </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, ease: [0.19, 1, 0.22, 1] }}
-          className="group"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onFocusCapture={() => setIsPaused(true)}
-          onBlurCapture={() => setIsPaused(false)}
-        >
-          <div className="relative overflow-hidden bg-stone-200">
-            <div className="flex w-full" style={trackStyle}>
-              {slides.map((slide) => (
-                <div key={slide.title} className="w-full shrink-0">
-                  <div className="relative h-[clamp(220px,34vh,380px)] w-full overflow-hidden bg-stone-200 md:h-[clamp(260px,36vh,420px)]">
-                    <img
-                      src={slide.image}
-                      alt={slide.title}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-stone-200" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Dot indicators — bottom center */}
+        <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-row items-center gap-2">
+          {project.images.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => { e.preventDefault(); setActive(i); }}
+              className="h-2 w-2 rounded-full transition-all duration-500"
+              style={{
+                backgroundColor: i === active ? '#ffffff' : 'rgba(200,200,200,0.55)',
+                transform: i === active ? 'scale(1.4)' : 'scale(1)',
+              }}
+              aria-label={`Show image ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </Link>
+  );
+}
 
-          <div className="mt-6 flex flex-col items-center gap-4">
-            <div className="text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#FF642B]">
-                {activeSlide.category}
-              </p>
-              <p className="mt-2 text-2xl font-medium tracking-[-0.02em] text-stone-950">
-                {activeSlide.title}
-              </p>
-            </div>
+export default function ProjectShowcase() {
+  const row1 = projects.slice(0, 2);
+  const row2 = projects.slice(2, 4);
+  const row3 = projects.slice(4, 6);
 
-            <div className="flex items-center justify-center gap-3">
-              {slides.map((slide, index) => {
-                const active = index === activeIndex;
-                return (
-                  <button
-                    key={slide.title}
-                    type="button"
-                    aria-label={`Go to project ${index + 1}`}
-                    onClick={() => setActiveIndex(index)}
-                    className="h-3 w-3 rounded-full transition-colors duration-200"
-                    style={{
-                      backgroundColor: active ? '#FF642B' : '#a8a29e',
-                      opacity: active ? 1 : 0.7,
-                    }}
-                  />
-                );
-              })}
-            </div>
-          </div>
-        </motion.div>
+  return (
+    <section id="work" className="bg-white px-8 pb-16 pt-24 md:px-14 md:pb-20 md:pt-28 lg:px-20">
+      <div className="mx-auto max-w-screen-xl">
+
+        <h2 className="mb-8 font-display text-[clamp(2rem,4.5vw,3.75rem)] font-bold uppercase leading-[1] tracking-[-0.04em] text-stone-950 md:mb-10">
+          Work
+        </h2>
+
+        {/* Row 1 */}
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+          {row1.map((p) => <ProjectCard key={p.title} project={p} />)}
+        </div>
+
+        {/* Row 2 */}
+        <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+          {row2.map((p) => <ProjectCard key={p.title} project={p} />)}
+        </div>
+
+        {/* Row 3 */}
+        <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+          {row3.map((p) => <ProjectCard key={p.title} project={p} />)}
+        </div>
+
       </div>
     </section>
   );

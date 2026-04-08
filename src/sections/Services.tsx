@@ -21,13 +21,13 @@ const services = [
     icon: Fingerprint,
     title: 'Visual Identity',
     description:
-      'Distinctive identity systems — logotype, typography, colour, motion, and the rules that govern them.',
+      'Distinctive identity systems: logotype, typography, colour, motion, and the rules that govern them.',
   },
   {
     icon: Camera,
     title: 'Art Direction',
     description:
-      'Creative direction for photography, film, and editorial — crafting the image language of a brand.',
+      'Creative direction for photography, film, and editorial, crafting the image language of a brand.',
   },
   {
     icon: Package,
@@ -87,7 +87,7 @@ export default function Services() {
               variants={fadeUp}
               className="text-stone-500 text-base md:text-lg leading-relaxed max-w-md font-light flex-1"
             >
-              We work across the full spectrum of brand-building — from
+              We work across the full spectrum of brand-building, from
               foundational strategy to the finest details of execution.
               Every discipline connected by a unified creative intelligence.
             </motion.p>

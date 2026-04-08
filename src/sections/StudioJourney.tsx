@@ -9,7 +9,7 @@ const timelineData = [
     content: (
       <div className="flex flex-col gap-5">
         <p className="text-stone-600 text-sm md:text-base leading-relaxed font-light max-w-xl">
-          Studio Nine One is established in London. The first year is devoted entirely to craft — building a small, obsessive team focused on brand identity and visual language. Our first clients: an architecture practice and a specialty food producer.
+          Studio Nine One is established in London. The first year is devoted entirely to craft, building a small, obsessive team focused on brand identity and visual language. Our first clients: an architecture practice and a specialty food producer.
         </p>
         <div className="grid grid-cols-2 gap-3">
           <img
@@ -33,7 +33,7 @@ const timelineData = [
     content: (
       <div className="flex flex-col gap-5">
         <p className="text-stone-600 text-sm md:text-base leading-relaxed font-light max-w-xl">
-          We expand into brand strategy and positioning — moving upstream in the creative process. First international mandates arrive from France and the UAE. The team grows to eight. We begin our work in packaging and art direction.
+          We expand into brand strategy and positioning, moving upstream in the creative process. First international mandates arrive from France and the UAE. The team grows to eight. We begin our work in packaging and art direction.
         </p>
         <div className="grid grid-cols-2 gap-3">
           <img
@@ -57,7 +57,7 @@ const timelineData = [
     content: (
       <div className="flex flex-col gap-5">
         <p className="text-stone-600 text-sm md:text-base leading-relaxed font-light max-w-xl">
-          A year of systems-thinking. We formalise our approach to identity systems — moving beyond logos into the rules, rhythms, and behaviours that define how a brand lives. Campaign work begins. Digital experiences become a core offering.
+          A year of systems-thinking. We formalise our approach to identity systems, moving beyond logos into the rules, rhythms, and behaviours that define how a brand lives. Campaign work begins. Digital experiences become a core offering.
         </p>
         <div className="grid grid-cols-2 gap-3">
           <img
@@ -77,11 +77,11 @@ const timelineData = [
     ),
   },
   {
-    title: '2023 —',
+    title: '2023',
     content: (
       <div className="flex flex-col gap-5">
         <p className="text-stone-600 text-sm md:text-base leading-relaxed font-light max-w-xl">
-          Studio Nine One operates across 14 industry sectors with partners on five continents. We have shaped over 60 brands — from luxury hospitality to technology startups to cultural institutions. The work continues.
+          Studio Nine One operates across 14 industry sectors with partners on five continents. We have shaped over 60 brands, from luxury hospitality to technology startups to cultural institutions. The work continues.
         </p>
         <div className="grid grid-cols-2 gap-3">
           <img
@@ -137,7 +137,7 @@ export default function StudioJourney() {
             className="text-stone-500 text-base md:text-lg leading-relaxed max-w-md font-light flex-1"
           >
             Every studio has an origin. Ours began with a simple conviction:
-            that the most important thing a brand can be is itself — clearly,
+            that the most important thing a brand can be is itself, clearly,
             confidently, and consistently.
           </motion.p>
         </motion.div>

@@ -1,74 +1,65 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Globe } from '../components/ui/globe';
-import { staggerContainer, fadeUp } from '../lib/motion';
+import { fadeUp, staggerContainer } from '../lib/motion';
 
-const highlightedCities = ['Shanghai', 'Taipei', 'Paris'];
+const markets = [
+  { city: 'Shanghai', region: 'Asia' },
+  { city: 'Taipei', region: 'Asia' },
+  { city: 'Paris', region: 'Europe' },
+  { city: 'Amsterdam', region: 'Europe' },
+  { city: 'New York', region: 'Americas' },
+  { city: 'Tokyo', region: 'Asia' },
+];
 
 export default function GlobalReach() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <section
       ref={ref}
       id="reach"
-      className="relative flex items-center overflow-hidden bg-stone-900 py-24 md:min-h-[560px] md:py-0"
+      className="border-t border-stone-100 bg-white px-8 py-16 md:px-14 md:py-20 lg:px-20"
     >
-      <div className="mx-auto w-full max-w-screen-xl px-6 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-0">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={isInView ? 'visible' : 'hidden'}
-            className="relative z-10 flex flex-col gap-7 py-16 md:py-24"
-          >
+      <div className="mx-auto max-w-screen-xl">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="flex flex-col gap-8 md:flex-row md:items-start md:gap-16"
+        >
+          <div className="shrink-0">
             <motion.p
               variants={fadeUp}
-              className="text-xs font-medium uppercase tracking-[0.25em] text-stone-500"
+              className="text-xs font-bold uppercase tracking-[0.28em] text-stone-400"
             >
               Global Inspiration
             </motion.p>
-
-            <motion.h2
-              variants={fadeUp}
-              className="font-display text-[clamp(2.2rem,5vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.05em] text-stone-50"
-            >
-              A glocal point of view,
-              <br />
-              shaped by world capitals.
-            </motion.h2>
-
             <motion.p
               variants={fadeUp}
-              className="max-w-md text-base leading-relaxed text-stone-400 md:text-lg"
+              className="mt-3 max-w-xs text-base font-semibold leading-snug tracking-[-0.02em] text-stone-950"
             >
-              Studio91 draws inspiration from the rhythm, restraint, and energy
-              of capitals across Asia, Europe, and the US. We go deepest on
-              Shanghai, Taipei, and Paris, with additional reference points
-              from Amsterdam, Berlin, New York, Los Angeles, and Tokyo.
+              A glocal point of view shaped by world capitals.
             </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-2 flex flex-wrap gap-3">
-              {highlightedCities.map((city) => (
-                <span
-                  key={city}
-                  className="cursor-default border border-stone-800 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-stone-500 transition-colors duration-300 hover:border-[#FF642B] hover:text-[#FF9A76]"
-                >
-                  {city}
-                </span>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          <div className="relative hidden h-[460px] items-center justify-center md:flex">
-            <div className="pointer-events-none absolute inset-0 z-10 [background:radial-gradient(ellipse_50%_50%_at_50%_50%,transparent_40%,#1c1917_100%)]" />
-            <Globe className="top-1/2 max-w-[420px] -translate-y-1/2" />
           </div>
-        </div>
-      </div>
 
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-stone-50 to-transparent" />
+          <motion.div
+            variants={fadeUp}
+            className="grid grid-cols-2 gap-x-12 gap-y-4 sm:grid-cols-3 md:gap-x-16"
+          >
+            {markets.map((m) => (
+              <div key={m.city} className="flex items-baseline gap-2">
+                <span className="text-sm font-semibold tracking-[-0.01em] text-stone-800">
+                  {m.city}
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-stone-400">
+                  {m.region}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

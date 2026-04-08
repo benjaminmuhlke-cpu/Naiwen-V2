@@ -7,13 +7,13 @@ const pillars = [
     number: '01',
     title: 'Strategy',
     description:
-      'We start with clarity. Understanding what a brand stands for, who it is for, and how it should move through the world — before a single mark is made.',
+      'We start with clarity. Understanding what a brand stands for, who it is for, and how it should move through the world, before a single mark is made.',
   },
   {
     number: '02',
     title: 'Taste',
     description:
-      'Design is a point of view. We bring a refined aesthetic sensibility honed across sectors — fashion, hospitality, culture, technology — to every project.',
+      'Design is a point of view. We bring a refined aesthetic sensibility honed across sectors: fashion, hospitality, culture, technology, to every project.',
   },
   {
     number: '03',
@@ -25,7 +25,7 @@ const pillars = [
     number: '04',
     title: 'Longevity',
     description:
-      'We build brands that endure. Not trend-chasing, but timeless systems with the flexibility to evolve — remaining distinctive season after season.',
+      'We build brands that endure. Not trend-chasing, but timeless systems with the flexibility to evolve, remaining distinctive season after season.',
   },
 ];
 
