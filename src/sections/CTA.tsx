@@ -1,22 +1,15 @@
 import { FormEvent, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { staggerContainer, fadeUp } from '../lib/motion';
+import { useLanguage } from '../context/LanguageContext';
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-form-id';
-
-const projectTypes = [
-  'Brand Identity',
-  'Packaging & Campaign',
-  'Digital Experience',
-  'Art Direction',
-  'Strategy & Positioning',
-  'Other',
-];
 
 const inputClass =
   'w-full border border-stone-200 bg-[#f5f5f5] px-4 py-3 font-sans text-sm text-stone-900 outline-none transition-colors duration-200 placeholder:text-stone-400 focus:border-stone-950 focus:bg-white';
 
 export default function CTA() {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -63,18 +56,18 @@ export default function CTA() {
               variants={fadeUp}
               className="text-xs font-bold uppercase tracking-[0.28em] text-stone-400"
             >
-              Contact
+              {t.cta.label}
             </motion.p>
 
             <motion.h2
               variants={fadeUp}
               className="font-display text-[clamp(2.8rem,6.5vw,5.5rem)] font-bold uppercase leading-[0.92] tracking-[-0.04em] text-stone-950"
             >
-              Start a<br />project.
+              {t.cta.heading1}<br />{t.cta.heading2}
             </motion.h2>
 
             <motion.p variants={fadeUp} className="text-sm leading-relaxed text-stone-500">
-              Tell me a bit about your project. I'll get back to you within 48 hours.
+              {t.cta.intro}
             </motion.p>
           </div>
 
@@ -83,46 +76,46 @@ export default function CTA() {
             <div className="grid gap-4 md:grid-cols-2">
               <label className="flex flex-col gap-1.5">
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-700">
-                  Name
+                  {t.cta.name}
                 </span>
                 <input
                   required
                   name="name"
                   type="text"
                   className={inputClass}
-                  placeholder="Your name"
+                  placeholder={t.cta.namePlaceholder}
                 />
               </label>
 
               <label className="flex flex-col gap-1.5">
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-700">
-                  Email
+                  {t.cta.email}
                 </span>
                 <input
                   required
                   name="email"
                   type="email"
                   className={inputClass}
-                  placeholder="you@example.com"
+                  placeholder={t.cta.emailPlaceholder}
                 />
               </label>
             </div>
 
             <label className="flex flex-col gap-1.5">
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-700">
-                Brand / Company
+                {t.cta.company}
               </span>
               <input
                 name="company"
                 type="text"
                 className={inputClass}
-                placeholder="Optional"
+                placeholder={t.cta.companyPlaceholder}
               />
             </label>
 
             <label className="flex flex-col gap-1.5">
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-700">
-                Project Type
+                {t.cta.projectType}
               </span>
               <select
                 required
@@ -131,9 +124,9 @@ export default function CTA() {
                 className={inputClass}
               >
                 <option value="" disabled>
-                  Select a type
+                  {t.cta.projectTypePlaceholder}
                 </option>
-                {projectTypes.map((type) => (
+                {t.cta.projectTypes.map((type) => (
                   <option key={type} value={type}>
                     {type}
                   </option>
@@ -143,14 +136,14 @@ export default function CTA() {
 
             <label className="flex flex-col gap-1.5">
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-700">
-                Brief
+                {t.cta.brief}
               </span>
               <textarea
                 required
                 name="brief"
                 rows={3}
                 className={inputClass}
-                placeholder="Briefly describe your project and goals"
+                placeholder={t.cta.briefPlaceholder}
               />
             </label>
 
@@ -160,17 +153,17 @@ export default function CTA() {
                 disabled={status === 'submitting'}
                 className="inline-flex items-center justify-center bg-[#FF642B] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-stone-950 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {status === 'submitting' ? 'Sending...' : 'Submit'}
+                {status === 'submitting' ? t.cta.sending : t.cta.submit}
               </button>
 
               {status === 'success' && (
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-600">
-                  Sent. We'll be in touch soon.
+                  {t.cta.success}
                 </p>
               )}
               {status === 'error' && (
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-red-600">
-                  Something went wrong. Please try again.
+                  {t.cta.error}
                 </p>
               )}
             </div>
