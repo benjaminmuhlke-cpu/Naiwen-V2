@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 // ─── Project data ──────────────────────────────────────────────────────────────
 
@@ -216,6 +217,7 @@ function Marquee() {
 
 export default function ProjectPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { t } = useLanguage();
   const project = slug ? projectMap[slug] : null;
   const nextProject = project ? projectMap[project.next] : null;
   const [onDark, setOnDark] = useState(true);
@@ -261,7 +263,7 @@ export default function ProjectPage() {
           href="/#work"
           className={`flex items-center gap-2 py-3 -my-3 text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${onDark ? 'text-white/80 hover:text-white' : 'text-[#FF642B]/80 hover:text-[#FF642B]'}`}
         >
-          <ArrowLeft size={13} /> All Recent Projects
+          <ArrowLeft size={13} /> {t.project.allProjects}
         </a>
       </nav>
 
@@ -280,16 +282,16 @@ export default function ProjectPage() {
           <motion.h1
             variants={fadeUp}
             className="font-display font-bold uppercase leading-none tracking-tight text-white"
-            style={{ fontSize: 'clamp(3.5rem, 10vw, 9rem)' }}
+            style={{ fontSize: 'clamp(2.2rem, 8vw, 9rem)' }}
           >
             {project.title}
           </motion.h1>
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
             {[
-              { label: 'Client', value: project.client },
-              { label: 'Year', value: project.year },
-              { label: 'Services', value: project.deliverables },
-              { label: 'Role', value: project.role },
+              { label: t.project.client, value: project.client },
+              { label: t.project.year, value: project.year },
+              { label: t.project.services, value: project.deliverables },
+              { label: t.project.role, value: project.role },
             ].map((item) => (
               <div key={item.label}>
                 <p className="mb-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white/40">{item.label}</p>
@@ -307,7 +309,7 @@ export default function ProjectPage() {
       <section className="px-8 py-16 md:px-14 md:py-36 lg:px-20">
         <Reveal>
           <div className="mx-auto max-w-screen-xl">
-            <p className="mb-6 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-400">Overview</p>
+            <p className="mb-6 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-400">{t.project.overview}</p>
             <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[3fr_2fr] md:gap-16">
               <div>
                 <h2
@@ -347,7 +349,7 @@ export default function ProjectPage() {
             <img src={project.images[1]} alt="" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col justify-center bg-stone-950 px-10 py-16 md:px-14 sm:h-svh">
-            <p className="mb-6 text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#FF642B]">Behind the work</p>
+            <p className="mb-6 text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#FF642B]">{t.project.behind}</p>
             <h3 className="mb-6 font-display font-bold uppercase leading-tight text-white" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)' }}>
               {project.closingTitle}
             </h3>
@@ -385,7 +387,7 @@ export default function ProjectPage() {
           <div className="absolute inset-0 opacity-25">
             <img src={nextProject.heroImage} alt={nextProject.title} className="h-full w-full object-cover" />
           </div>
-          <p className="relative mb-4 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/40">Next Project</p>
+          <p className="relative mb-4 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/40">{t.project.next}</p>
           <h2
             className="relative font-display font-bold uppercase leading-none tracking-tight transition-colors duration-300 group-hover:text-[#FF642B]"
             style={{ fontSize: 'clamp(3rem, 9vw, 8rem)' }}
@@ -393,7 +395,7 @@ export default function ProjectPage() {
             {nextProject.title}
           </h2>
           <span className="relative mt-6 flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-white/50 transition-all duration-300 group-hover:gap-4 group-hover:text-white">
-            View project <ArrowUpRight size={13} />
+            {t.project.view} <ArrowUpRight size={13} />
           </span>
         </Link>
       )}
@@ -422,10 +424,10 @@ export default function ProjectPage() {
             href="/"
             className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-400 transition-colors duration-300 hover:text-white"
           >
-            Back to Home Page
+            {t.project.back}
           </a>
           <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-600">
-            © {new Date().getFullYear()} Studio 91. All rights reserved
+            © {new Date().getFullYear()} Studio 91. {t.footer.rights}
           </p>
         </div>
       </footer>

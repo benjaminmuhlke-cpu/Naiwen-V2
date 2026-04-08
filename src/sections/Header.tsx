@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Menu } from 'lucide-react';
-
-const navLinks = ['Work', 'About', 'Contact'];
+import { useLanguage } from '../context/LanguageContext';
+import type { Lang } from '../i18n';
 
 export default function Header() {
+  const { lang, setLang, t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [light, setLight] = useState(true); // true = white text, false = dark text
+  const [light, setLight] = useState(true);
 
   useEffect(() => {
-    const darkSections = ['about']; // section ids with dark backgrounds
+    const darkSections = ['about'];
 
     const update = () => {
-      const headerMid = 36; // vertical midpoint of the 72px header
+      const headerMid = 36;
 
-      // Over hero?
       if (window.scrollY < window.innerHeight - 80) {
         setLight(true);
         return;
       }
 
-      // Over a dark-bg section?
       for (const id of darkSections) {
         const el = document.getElementById(id);
         if (!el) continue;
@@ -39,11 +38,19 @@ export default function Header() {
     return () => window.removeEventListener('scroll', update);
   }, []);
 
+  const navLinks = [
+    { key: 'work', label: t.nav.work },
+    { key: 'about', label: t.nav.about },
+    { key: 'contact', label: t.nav.contact },
+  ];
+
   const linkColor = light
     ? 'text-white/80 hover:text-white'
     : 'text-stone-950/70 hover:text-stone-950';
 
   const iconColor = light ? 'text-white' : 'text-stone-950';
+
+  const langs: Lang[] = ['en', 'fr'];
 
   return (
     <>
@@ -61,15 +68,37 @@ export default function Header() {
             <nav aria-label="Main navigation" className="hidden items-center gap-10 md:flex">
               {navLinks.map((link) => (
                 <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  aria-label={`Navigate to ${link} section`}
+                  key={link.key}
+                  href={`#${link.key}`}
+                  aria-label={`Navigate to ${link.label} section`}
                   className={`group relative text-xs font-semibold uppercase tracking-[0.2em] transition-colors duration-500 ${linkColor}`}
                 >
-                  {link}
+                  {link.label}
                   <span className="absolute -bottom-1 left-0 h-px w-0 bg-[#FF642B] transition-all duration-300 ease-out group-hover:w-full" />
                 </a>
               ))}
+
+              {/* Language toggle */}
+              <div className={`flex items-center gap-2 border-l pl-6 transition-colors duration-500 ${light ? 'border-white/20' : 'border-stone-950/20'}`}>
+                {langs.map((l, i) => (
+                  <span key={l} className="flex items-center gap-2">
+                    {i > 0 && <span className={`text-[10px] ${light ? 'text-white/20' : 'text-stone-950/20'}`}>/</span>}
+                    <button
+                      onClick={() => setLang(l)}
+                      className={`group relative text-xs font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                        l === lang
+                          ? light ? 'text-white' : 'text-stone-950'
+                          : light ? 'text-white/35 hover:text-white' : 'text-stone-950/30 hover:text-stone-950'
+                      }`}
+                    >
+                      {l}
+                      {l === lang && (
+                        <span className="absolute -bottom-1 left-0 h-px w-full bg-[#FF642B]" />
+                      )}
+                    </button>
+                  </span>
+                ))}
+              </div>
             </nav>
 
             <button
@@ -95,26 +124,47 @@ export default function Header() {
             <nav aria-label="Mobile navigation" className="mt-8 flex flex-col gap-8">
               {navLinks.map((link, i) => (
                 <motion.a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
+                  key={link.key}
+                  href={`#${link.key}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
                   onClick={() => setMenuOpen(false)}
                   className="font-display text-4xl font-bold uppercase tracking-[-0.03em] text-white transition-colors duration-300 hover:text-[#FF642B]"
                 >
-                  {link}
+                  {link.label}
                 </motion.a>
               ))}
+
+              {/* Language toggle — mobile */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.28, duration: 0.5 }}
+                className="flex items-center gap-4 border-t border-white/10 pt-6"
+              >
+                {langs.map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => setLang(l)}
+                    className={`text-sm font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${
+                      l === lang ? 'text-[#FF642B]' : 'text-white/40 hover:text-white'
+                    }`}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </motion.div>
+
               <motion.a
                 href="#contact"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.35, duration: 0.5 }}
                 onClick={() => setMenuOpen(false)}
-                className="mt-4 inline-flex self-start bg-[#FF642B] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-stone-950"
+                className="mt-2 inline-flex self-start bg-[#FF642B] px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-white hover:text-stone-950"
               >
-                Start a Project
+                {t.nav.cta}
               </motion.a>
             </nav>
           </motion.div>

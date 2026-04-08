@@ -9,47 +9,12 @@ import {
   Megaphone,
 } from 'lucide-react';
 import { staggerContainer, fadeUp } from '../lib/motion';
+import { useLanguage } from '../context/LanguageContext';
 
-const services = [
-  {
-    icon: Layers,
-    title: 'Branding',
-    description:
-      'Strategic brand development from positioning and messaging to the complete verbal and visual system.',
-  },
-  {
-    icon: Fingerprint,
-    title: 'Visual Identity',
-    description:
-      'Distinctive identity systems: logotype, typography, colour, motion, and the rules that govern them.',
-  },
-  {
-    icon: Camera,
-    title: 'Art Direction',
-    description:
-      'Creative direction for photography, film, and editorial, crafting the image language of a brand.',
-  },
-  {
-    icon: Package,
-    title: 'Packaging',
-    description:
-      'Structural and graphic packaging design that communicates on shelf and in the hands of the customer.',
-  },
-  {
-    icon: Monitor,
-    title: 'Digital Experiences',
-    description:
-      'Websites, web applications, and interactive platforms designed with the same rigour as print.',
-  },
-  {
-    icon: Megaphone,
-    title: 'Campaign Systems',
-    description:
-      'Integrated campaign concepts and executions across channels, built on a singular creative idea.',
-  },
-];
+const icons = [Layers, Fingerprint, Camera, Package, Monitor, Megaphone];
 
 export default function Services() {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
@@ -72,24 +37,22 @@ export default function Services() {
                 variants={fadeUp}
                 className="text-xs tracking-[0.25em] uppercase text-stone-400"
               >
-                What We Do
+                {t.services.label}
               </motion.p>
               <motion.h2
                 variants={fadeUp}
                 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-tight tracking-tight text-stone-900"
               >
-                Our
+                {t.services.heading1}
                 <br />
-                <em>disciplines.</em>
+                <em>{t.services.heading2}</em>
               </motion.h2>
             </div>
             <motion.p
               variants={fadeUp}
               className="text-stone-500 text-base md:text-lg leading-relaxed max-w-md font-light flex-1"
             >
-              We work across the full spectrum of brand-building, from
-              foundational strategy to the finest details of execution.
-              Every discipline connected by a unified creative intelligence.
+              {t.services.intro}
             </motion.p>
           </div>
 
@@ -98,8 +61,8 @@ export default function Services() {
             variants={staggerContainer}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-stone-300"
           >
-            {services.map((service) => {
-              const Icon = service.icon;
+            {t.services.items.map((service, index) => {
+              const Icon = icons[index];
               return (
                 <motion.div
                   key={service.title}
@@ -121,7 +84,7 @@ export default function Services() {
                   </div>
                   <div className="mt-auto pt-4">
                     <span className="text-xs tracking-widest uppercase text-stone-400 group-hover:text-stone-700 transition-colors duration-300">
-                      Learn more →
+                      {t.services.learnMore}
                     </span>
                   </div>
                 </motion.div>
