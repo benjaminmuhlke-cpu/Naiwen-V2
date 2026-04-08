@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Header from './sections/Header';
 import Hero from './sections/Hero';
 import Testimonials from './sections/Testimonials';
@@ -44,6 +45,7 @@ export default function App() {
     <>
       <LoadingScreen />
       <RouterProvider router={router} />
+      <SpeedInsights />
     </>
   );
 }
