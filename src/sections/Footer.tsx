@@ -26,7 +26,7 @@ export default function Footer() {
         </div>
 
         <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-600">
-          © {year} Studio 91 — All rights reserved
+          © {year} Studio 91. All rights reserved
         </p>
 
       </div>

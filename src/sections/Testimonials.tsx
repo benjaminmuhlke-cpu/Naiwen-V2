@@ -15,8 +15,8 @@ const collaborators = [
 
 export default function Testimonials() {
   return (
-    <div className="border-b border-stone-100 bg-white py-5">
-      <InfiniteSlider gap={88} duration={50} durationOnHover={100} className="w-full">
+    <div className="bg-white py-5">
+      <InfiniteSlider gap={88} duration={60} className="w-full">
         {collaborators.map((item) => (
           <div key={item.label} className="flex shrink-0 items-center gap-20">
             <span className="font-display text-base font-semibold uppercase tracking-[0.18em] text-stone-400 transition-colors duration-300 hover:text-stone-700">

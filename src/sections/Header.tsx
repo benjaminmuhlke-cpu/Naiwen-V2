@@ -51,17 +51,19 @@ export default function Header() {
         <div className="mx-auto max-w-screen-xl">
           <div className="flex h-16 items-center justify-between md:h-[72px]">
             <a
-              href="#"
+              href="/"
+              aria-label="Studio 91 — Back to homepage"
               className={`font-logo text-base font-bold uppercase tracking-[0.12em] transition-colors duration-500 hover:opacity-75 ${light ? 'text-white' : 'text-[#FF642B]'}`}
             >
               Studio 91
             </a>
 
-            <nav className="hidden items-center gap-10 md:flex">
+            <nav aria-label="Main navigation" className="hidden items-center gap-10 md:flex">
               {navLinks.map((link) => (
                 <a
                   key={link}
                   href={`#${link.toLowerCase()}`}
+                  aria-label={`Navigate to ${link} section`}
                   className={`group relative text-xs font-semibold uppercase tracking-[0.2em] transition-colors duration-500 ${linkColor}`}
                 >
                   {link}
@@ -90,7 +92,7 @@ export default function Header() {
             transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
             className="fixed inset-0 z-40 flex flex-col bg-stone-950 px-8 pt-20 md:hidden"
           >
-            <nav className="mt-8 flex flex-col gap-8">
+            <nav aria-label="Mobile navigation" className="mt-8 flex flex-col gap-8">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link}

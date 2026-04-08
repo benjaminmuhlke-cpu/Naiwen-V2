@@ -74,22 +74,12 @@ export default function CTA() {
             </motion.h2>
 
             <motion.p variants={fadeUp} className="text-sm leading-relaxed text-stone-500">
-              Share your contact info and a short description of what you need.
-              We'll respond within{' '}
-              <span className="font-semibold text-stone-800">48 hours</span>.
+              Tell me a bit about your project. I'll get back to you within 48 hours.
             </motion.p>
-
-            <motion.a
-              variants={fadeUp}
-              href="mailto:naiwen1991@gmail.com"
-              className="font-display text-[1.35rem] font-bold tracking-[-0.02em] text-stone-950 transition-colors duration-300 hover:text-[#FF642B] md:text-[1.6rem]"
-            >
-              naiwen1991@gmail.com
-            </motion.a>
           </div>
 
           {/* Right — form */}
-          <motion.form variants={fadeUp} onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <motion.form variants={fadeUp} onSubmit={handleSubmit} aria-label="Project inquiry form" className="flex flex-col gap-4">
             <div className="grid gap-4 md:grid-cols-2">
               <label className="flex flex-col gap-1.5">
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-700">

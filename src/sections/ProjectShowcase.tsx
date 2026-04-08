@@ -10,43 +10,63 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: 'Maison None',
-    category: 'Brand Identity',
-    slug: 'maison-none',
+    title: 'TAFE BUTTERBEER PASTRY',
+    category: 'Packaging',
+    slug: 'tafe-warner-hp',
     images: [
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1400&q=80&auto=format&fit=crop',
     ],
   },
   {
-    title: 'Clouce Coffee',
-    category: 'Branding & Packaging',
-    slug: 'clouce-coffee',
+    title: 'STARBUCKS',
+    category: 'Limited Edition Packaging',
+    slug: 'starbucks',
     images: [
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1400&q=80&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&q=80&auto=format&fit=crop',
     ],
   },
   {
-    title: 'Aesop',
-    category: 'Editorial Design',
-    slug: 'aesop',
+    title: 'BE-KIND',
+    category: 'Campaign & Packaging',
+    slug: 'be-kind',
     images: [
-      'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1400&q=80&auto=format&fit=crop',
     ],
   },
   {
-    title: 'Forma Studio',
-    category: 'Visual Identity',
-    slug: 'forma-studio',
+    title: 'YEAH RIGHT',
+    category: 'Brand Identity',
+    slug: 'yeah-right',
     images: [
-      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1536329583941-14287ec6fc4e?w=1400&q=80&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80&auto=format&fit=crop',
+    ],
+  },
+  {
+    title: 'ENERGY',
+    category: 'Digital & Motion',
+    slug: 'energy',
+    images: [
+      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1400&q=80&auto=format&fit=crop',
+    ],
+  },
+  {
+    title: 'LA FESTIN',
+    category: 'Brand Identity',
+    slug: 'la-festin',
+    images: [
+      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1400&q=80&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1400&q=80&auto=format&fit=crop',
     ],
   },
 ];
@@ -62,17 +82,17 @@ function ProjectCard({ project }: { project: Project }) {
   }, [project.images.length]);
 
   return (
-    <Link to={`/projects/${project.slug}`} className="block">
+    <Link to={`/projects/${project.slug}`} className="block" aria-label={`View ${project.title} — ${project.category} case study`}>
       <div
         className="group relative cursor-pointer overflow-hidden bg-stone-200"
-        style={{ height: 'clamp(380px, calc(100vh - 220px), 900px)' }}
+        style={{ height: 'clamp(220px, 38vw, 600px)' }}
       >
         {/* Slides */}
         {project.images.map((src, i) => (
           <img
             key={src}
             src={src}
-            alt={`${project.title} ${i + 1}`}
+            alt={`${project.title} — ${project.category}, image ${i + 1}`}
             loading="lazy"
             className="absolute inset-0 h-full w-full object-cover"
             style={{
@@ -118,13 +138,14 @@ function ProjectCard({ project }: { project: Project }) {
 export default function ProjectShowcase() {
   const row1 = projects.slice(0, 2);
   const row2 = projects.slice(2, 4);
+  const row3 = projects.slice(4, 6);
 
   return (
     <section id="work" className="bg-white px-8 pb-16 pt-24 md:px-14 md:pb-20 md:pt-28 lg:px-20">
       <div className="mx-auto max-w-screen-xl">
 
         <h2 className="mb-8 font-display text-[clamp(2rem,4.5vw,3.75rem)] font-bold uppercase leading-[1] tracking-[-0.04em] text-stone-950 md:mb-10">
-          Recent Projects
+          Work
         </h2>
 
         {/* Row 1 */}
@@ -135,6 +156,11 @@ export default function ProjectShowcase() {
         {/* Row 2 */}
         <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
           {row2.map((p) => <ProjectCard key={p.title} project={p} />)}
+        </div>
+
+        {/* Row 3 */}
+        <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+          {row3.map((p) => <ProjectCard key={p.title} project={p} />)}
         </div>
 
       </div>

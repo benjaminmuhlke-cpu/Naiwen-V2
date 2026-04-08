@@ -76,7 +76,7 @@ export default function LoadingScreen() {
       >
         <span
           style={{
-            fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+            fontFamily: "'JetBrains Mono', 'Courier New', monospace",
             fontWeight: 700,
             fontSize: 'clamp(3rem, 10vw, 6.5rem)',
             letterSpacing: '0.06em',

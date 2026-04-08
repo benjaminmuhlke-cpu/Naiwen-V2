@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 const ORANGE = "#FF642B"
-const ROTATION_SPEED = 0.008
+const ROTATION_SPEED = 0.00544
 
 const PRIMARY_CITIES = [
   { name: "Shanghai", location: [31.2304, 121.4737] as [number, number] },
@@ -157,7 +157,7 @@ export function Globe({
         const dx = sh.x - tp.x
         const dy = sh.y - tp.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        const minDist = 34
+        const minDist = 80
         if (dist < minDist) {
           const push = (minDist - dist) / 2
           const dir = dx >= 0 ? 1 : -1

@@ -11,11 +11,10 @@ export default function Intro() {
     <section
       ref={ref}
       id="about"
-      className="overflow-hidden bg-stone-950 px-8 md:px-14 lg:px-20"
-      style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+      className="overflow-hidden bg-stone-950 px-8 sm:px-10 md:px-14 lg:px-20 flex items-center min-h-svh"
     >
       <div className="mx-auto max-w-screen-xl">
-        <div className="grid grid-cols-1 items-center gap-16 md:grid-cols-2 md:gap-12">
+        <div className="grid grid-cols-1 items-center gap-16 sm:grid-cols-2 sm:gap-12">
           {/* Left — text */}
           <motion.div
             variants={staggerContainer}
@@ -38,17 +37,17 @@ export default function Intro() {
               <br />
               International.
               <br />
-              Detail-driven.
+              Built on clear ideas.
             </motion.h2>
 
-            <motion.p
+            <motion.div
               variants={fadeUp}
-              className="max-w-lg text-base leading-relaxed text-stone-400"
+              className="flex flex-col gap-4 max-w-lg text-base leading-relaxed text-stone-400"
             >
-              We craft distinctive identities and visual worlds for lifestyle,
-              fashion, and culture brands globally. Our approach is collaborative,
-              intentional, and quality-focused.
-            </motion.p>
+              <p>We design brand identities and visual systems for lifestyle, F&amp;B, and culture-led brands.</p>
+              <p>The focus is not just how things look, but how they hold together across packaging, spaces, and real-world use.</p>
+              <p>Based between Shanghai and Taipei, working across different markets and contexts.</p>
+            </motion.div>
 
             <motion.a
               variants={fadeUp}
@@ -61,7 +60,7 @@ export default function Intro() {
           </motion.div>
 
           {/* Right — globe */}
-          <div className="relative hidden h-[480px] items-center justify-center md:flex">
+          <div role="img" aria-label="Interactive globe showing Studio 91's international reach across Shanghai and Taipei" className="relative hidden h-[480px] items-center justify-center sm:flex">
             <div className="pointer-events-none absolute inset-0 z-10 [background:radial-gradient(ellipse_60%_60%_at_50%_50%,transparent_40%,rgb(9,9,11)_100%)]" />
             <Globe className="top-1/2 max-w-[440px] -translate-y-1/2" />
           </div>

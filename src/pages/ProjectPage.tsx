@@ -7,124 +7,161 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
 const allProjects = [
   {
-    slug: 'maison-none',
-    title: 'Maison None',
-    category: 'Brand Identity',
-    client: 'Maison None',
+    slug: 'tafe-warner-hp',
+    title: 'TAFE BUTTERBEER PASTRY',
+    category: 'Packaging',
+    client: 'TAFE × Warner Bros.',
     year: '2024',
     role: 'Lead Studio',
-    deliverables: 'Identity, Print, Retail',
+    deliverables: 'Identity, Packaging, Retail',
+    overviewTitle: 'A product that feels like it belongs in the wizarding world.',
     overview:
-      'A complete visual identity system built for a contemporary Parisian interior house. The brief called for something timeless yet modern — a brand that lives across print, digital, and retail without losing its character.',
+      'A collaboration between TAFE and Warner Bros. HP, bringing the magic of the wizarding world into a tangible, collectible product line. The brief demanded authenticity to the IP while carving out space for a distinct brand voice.',
     overviewSub:
-      'We developed a refined typographic system, a restrained palette inspired by Nordic interiors, and a packaging language that elevates every touchpoint.',
-    challenge:
-      'Maison None needed to stand apart in a saturated luxury market while remaining approachable to a younger, global audience. The visual language had to feel heritage-rich without feeling nostalgic.',
-    approach:
-      'We stripped the identity back to its essentials — precise typography, deliberate white space, and one signature material texture. Every element was designed as part of a unified system.',
-    heroImage: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1800&q=90&auto=format&fit=crop',
+      'Every touchpoint, from packaging structure to typographic language, was designed to feel like it had been pulled from a Hogwarts shelf. The system balances fantasy and craft without tipping into novelty.',
+    tags: ['Brand Identity', 'Packaging', 'Art Direction', 'Retail', 'Collaboration'],
+    heroImage: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1800&q=90&auto=format&fit=crop',
     images: [
-      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=1200&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1535905557558-afc4877a26fc?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1550399105-c4db5fb85c18?w=900&q=85&auto=format&fit=crop',
     ],
-    tags: ['Brand Strategy', 'Visual Identity', 'Art Direction', 'Print', 'Retail'],
-    closingTitle: 'A system built to grow with the brand.',
-    closingText1: 'The identity was designed not as a snapshot but as a living system — one that adapts across formats, scales, and contexts while staying immediately recognisable.',
-    closingText2: 'From flagship retail to digital campaigns, every application was tested against the full range of brand touchpoints before release.',
-    next: 'clouce-coffee',
+    closingTitle: 'Where licensing ends and craft begins.',
+    closingText1: 'The biggest challenge with IP-led work is avoiding the trap of pure reproduction. We pushed for a design language that felt native to the world, not applied on top of it.',
+    closingText2: 'The result is a product line that fans want to own, not because of the logo, but because of how it feels in their hands.',
+    next: 'starbucks',
   },
   {
-    slug: 'clouce-coffee',
-    title: 'Clouce Coffee',
-    category: 'Branding & Packaging',
-    client: 'Clouce Coffee',
+    slug: 'starbucks',
+    title: 'STARBUCKS',
+    category: 'Limited Edition Packaging',
+    client: 'Starbucks',
     year: '2024',
-    role: 'Brand & Packaging',
-    deliverables: 'Identity, Packaging, Web',
+    role: 'Packaging Direction',
+    deliverables: 'Packaging, Campaign, Retail',
+    overviewTitle: 'China-exclusive holiday packaging for Starbucks, centered around a limited-edition cup.',
     overview:
-      'Clouce Coffee came to us with great beans and no visual voice. We built a brand world from scratch — one that communicates craft, origin, and warmth across every surface.',
-    overviewSub:
-      'From the logo mark to the bag design, every element was created to feel tactile and premium while staying accessible. The system scales from single-origin bags to full café fitouts.',
-    challenge:
-      'The specialty coffee market is crowded with sameness — muted palettes, minimal sans-serifs, and generic origin storytelling. Clouce needed a brand that could cut through with personality.',
-    approach:
-      'We anchored the identity in warmth and texture — a bold wordmark, earthy colour system, and tactile packaging finishes. The tone of voice was set to feel like a conversation, not a pitch.',
-    heroImage: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1800&q=90&auto=format&fit=crop',
+      'The challenge was to bring together Christmas, New Year, and Chinese New Year within a single object, while maintaining brand clarity and a strong winter atmosphere.',
+    overviewSub: '',
+    tags: ['Packaging Design', 'Limited Edition', 'Cultural', 'Campaign', 'Retail'],
+    heroImage: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1800&q=90&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1200&q=85&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1200&q=85&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&q=85&auto=format&fit=crop',
     ],
-    tags: ['Brand Identity', 'Packaging Design', 'Art Direction', 'Typography', 'Web'],
-    closingTitle: 'More than a logo — a full brand world.',
-    closingText1: 'We built Clouce Coffee from the ground up: naming architecture, tone of voice, packaging system, and a digital presence that feels as considered as the coffee itself.',
-    closingText2: 'The result is a brand that punches above its weight — boutique in feel, scalable in execution.',
-    next: 'aesop',
+    closingTitle: 'The idea builds around "winter as a shared feeling", anchored by the phrase 冬暖雪融.',
+    closingText1: 'Elements like calligraphy, seals, engraving textures, paper cutting, and Chinese knots are integrated into the design, not as decoration, but as part of the visual system, allowing the cup to hold multiple cultural references while still feeling unmistakably Starbucks.',
+    closingText2: '',
+    next: 'be-kind',
   },
   {
-    slug: 'aesop',
-    title: 'Aesop',
-    category: 'Editorial Design',
-    client: 'Aesop',
-    year: '2023',
-    role: 'Editorial Direction',
-    deliverables: 'Editorial, Campaign, Digital',
+    slug: 'be-kind',
+    title: 'BE-KIND',
+    category: 'Campaign & Packaging',
+    client: 'Kind Snacks',
+    year: '2024',
+    role: 'Campaign Direction',
+    deliverables: 'Packaging, Campaign, Digital',
+    overviewTitle: 'A Chinese New Year gift box designed as BE-KIND\'s entry into the Chinese market.',
     overview:
-      'A seasonal editorial campaign built around Aesop\'s philosophy of rigour and restraint. The work spans print, digital, and in-store — all speaking in one coherent visual language.',
-    overviewSub:
-      'We worked closely with Aesop\'s internal team to push their editorial voice into new territory — more human, more textured, without compromising the precision the brand is known for.',
-    challenge:
-      'Aesop\'s visual identity is deeply established. The challenge was to add a new editorial layer that felt fresh and surprising, without disrupting the brand\'s carefully built aesthetic integrity.',
-    approach:
-      'We focused on contrast: pairing the brand\'s cool, clinical precision with warmer, more intimate photography. The layouts were built on a strict grid but broken by unexpected scale shifts.',
-    heroImage: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1800&q=90&auto=format&fit=crop',
+      'The challenge was to bring a global health brand into a local gifting culture, while working within a fixed box structure and maintaining the brand\'s original tone.',
+    overviewSub: '',
+    tags: ['Campaign', 'Packaging', 'Cultural', 'Seasonal', 'Art Direction'],
+    heroImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&q=90&auto=format&fit=crop',
     images: [
-      'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=1200&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1570194065650-d99fb4d8a609?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1200&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=900&q=85&auto=format&fit=crop',
     ],
-    tags: ['Editorial Design', 'Campaign', 'Art Direction', 'Print', 'Digital'],
-    closingTitle: 'Pushing the editorial voice forward.',
-    closingText1: 'Working within an established brand requires a different kind of discipline. Every choice had to feel like Aesop — measured, precise, quietly confident.',
-    closingText2: 'The campaign ran across print, in-store, and digital, with each format adapted without dilution. The result extended the brand\'s reach without compromising its integrity.',
-    next: 'forma-studio',
+    closingTitle: 'The direction focuses on everyday neighborhood interactions during the holiday.',
+    closingText1: 'Within the limited packaging format, details such as layout, messaging, and custom stickers are used to create small moments of exchange. Making the gift feel less formal, and closer to how people actually share and connect during Chinese New Year.',
+    closingText2: '',
+    next: 'yeah-right',
   },
   {
-    slug: 'forma-studio',
-    title: 'Forma Studio',
-    category: 'Visual Identity',
-    client: 'Forma Collective',
+    slug: 'yeah-right',
+    title: 'YEAH RIGHT',
+    category: 'Brand Identity',
+    client: 'Yeah Right',
     year: '2023',
     role: 'Brand Direction',
-    deliverables: 'Identity, Digital, Motion',
+    deliverables: 'Identity, Print, Digital',
+    overviewTitle: 'A brand identity redesign for a burger food truck, focused on clarifying a previously inconsistent visual system.',
     overview:
-      'Forma Studio is an architecture and interiors collective that needed a brand to match the ambition of their work. We built an identity system that is structural, modular, and alive.',
-    overviewSub:
-      'The system is built on a flexible grid logic that mirrors Forma\'s spatial thinking. It adapts across print, digital, and motion — always feeling considered, never rigid.',
-    challenge:
-      'Architecture branding often falls into one of two traps: overly cold minimalism or overly decorative expressionism. Forma needed something in between — structured but warm, confident but not arrogant.',
-    approach:
-      'We drew from the language of architectural drawing — line weight, proportion, negative space. The palette was pulled from raw materials: concrete, steel, warm wood. The result is restrained but rich.',
-    heroImage: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1800&q=90&auto=format&fit=crop',
+      'The brand sits between two strong influences: American burger culture and a highly local Taiwanese street environment. The challenge was not to merge them, but to allow both to exist without losing clarity.',
+    overviewSub: '',
+    tags: ['Brand Identity', 'Art Direction', 'Cultural', 'Print', 'Digital'],
+    heroImage: 'https://images.unsplash.com/photo-1536329583941-14287ec6fc4e?w=1800&q=90&auto=format&fit=crop',
     images: [
       'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1400&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1524230572899-a752b3835840?w=900&q=85&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1464146072230-91cabc968266?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=85&auto=format&fit=crop',
     ],
-    tags: ['Visual Identity', 'Brand Strategy', 'Digital', 'Motion', 'Print'],
-    closingTitle: 'Structure as a design principle.',
-    closingText1: 'Forma\'s identity is built on the same logic as their buildings — modular, intentional, and honest about its materials. Nothing decorative. Everything purposeful.',
-    closingText2: 'The system ships with a full set of usage guidelines, motion principles, and digital templates so the team can maintain consistency without our involvement.',
-    next: 'maison-none',
+    closingTitle: 'The design leans into this contrast.',
+    closingText1: 'A black and yellow palette creates strong visibility, while the logo introduces a sharp "slice" of light, echoing the feeling of a burger layer, but also reading as a small signal in the night, like something you come across on your way home.',
+    closingText2: '',
+    next: 'energy',
+  },
+  {
+    slug: 'energy',
+    title: 'ENERGY',
+    category: 'Digital & Motion',
+    client: 'Energy Cosmetics',
+    year: '2023',
+    role: 'Creative Direction',
+    deliverables: 'Digital, Motion, Packaging',
+    overviewTitle: 'A brand identity developed for the beauty category, positioned for Western markets and Amazon.',
+    overview:
+      'The challenge was to stand out in a fast-moving digital environment, where products are seen quickly and competition is high.',
+    overviewSub: '',
+    tags: ['Digital', 'Motion', 'Packaging', 'Beauty', 'Creative Direction'],
+    heroImage: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1800&q=90&auto=format&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1200&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1570194065650-d99fb4d8a609?w=900&q=85&auto=format&fit=crop',
+    ],
+    closingTitle: 'The concept translates makeup in motion into a visual system.',
+    closingText1: 'Through color combinations, lighting, and photography direction, the brand expresses movement and transformation, creating a balance between energy and control, while remaining clear and impactful across digital shelves.',
+    closingText2: '',
+    next: 'la-festin',
+  },
+  {
+    slug: 'la-festin',
+    title: 'LA FESTIN',
+    category: 'Brand Identity',
+    client: 'La Festin',
+    year: '2023',
+    role: 'Brand Direction',
+    deliverables: 'Identity, Print, Packaging',
+    overviewTitle: 'A rebranding exploring how a French-inspired brand can exist in the Chinese market.',
+    overview:
+      'The challenge was to move away from familiar French clichés and define a more distinct and contemporary identity, while allowing room for future expansion.',
+    overviewSub: '',
+    tags: ['Brand Identity', 'Packaging', 'Print', 'Food & Beverage', 'Art Direction'],
+    heroImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=90&auto=format&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1400&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1493770348161-369560ae357d?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=900&q=85&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&q=85&auto=format&fit=crop',
+    ],
+    closingTitle: 'The direction draws from French New Wave cinema, not as a literal theme, but as a mindset.',
+    closingText1: 'Through casting, styling, composition, and layout, the system allows different moods and expressions to exist together, without becoming overly stylized or constrained.',
+    closingText2: '',
+    next: 'tafe-warner-hp',
   },
 ];
 
@@ -186,6 +223,11 @@ export default function ProjectPage() {
   useEffect(() => { window.scrollTo(0, 0); }, [slug]);
 
   useEffect(() => {
+    if (project) document.title = `${project.title} | Studio 91`;
+    return () => { document.title = 'Studio 91 | Brand Identity, Packaging & Creative Direction'; };
+  }, [project]);
+
+  useEffect(() => {
     const update = () => {
       // Hero is 100vh dark; after that background is light (stone-50)
       setOnDark(window.scrollY < window.innerHeight - 80);
@@ -211,20 +253,20 @@ export default function ProjectPage() {
       <nav className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-8 py-5 md:px-14 lg:px-20">
         <Link
           to="/"
-          className={`font-display text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${onDark ? 'text-white' : 'text-[#FF642B]'}`}
+          className={`py-3 -my-3 font-display text-xs font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${onDark ? 'text-white' : 'text-[#FF642B]'}`}
         >
           Studio 91
         </Link>
         <a
           href="/#work"
-          className={`flex items-center gap-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${onDark ? 'text-white/80 hover:text-white' : 'text-[#FF642B]/80 hover:text-[#FF642B]'}`}
+          className={`flex items-center gap-2 py-3 -my-3 text-[0.65rem] font-bold uppercase tracking-[0.15em] transition-colors duration-500 ${onDark ? 'text-white/80 hover:text-white' : 'text-[#FF642B]/80 hover:text-[#FF642B]'}`}
         >
           <ArrowLeft size={13} /> All Recent Projects
         </a>
       </nav>
 
       {/* ── HERO ────────────────────────────────────────────── */}
-      <section className="relative min-h-[560px] overflow-hidden bg-stone-950" style={{ height: '100vh' }}>
+      <section className="relative min-h-[560px] h-svh overflow-hidden bg-stone-950">
         <div className="absolute inset-0 opacity-50">
           <img src={project.heroImage} alt={project.title} className="h-full w-full object-cover" />
         </div>
@@ -242,7 +284,7 @@ export default function ProjectPage() {
           >
             {project.title}
           </motion.h1>
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-8 border-t border-white/20 pt-6">
+          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-x-6 gap-y-4">
             {[
               { label: 'Client', value: project.client },
               { label: 'Year', value: project.year },
@@ -262,27 +304,29 @@ export default function ProjectPage() {
       <Marquee />
 
       {/* ── OVERVIEW ────────────────────────────────────────── */}
-      <section className="px-8 py-24 md:px-14 md:py-36 lg:px-20">
+      <section className="px-8 py-16 md:px-14 md:py-36 lg:px-20">
         <Reveal>
-          <div className="mx-auto grid max-w-screen-xl grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-16">
-            <div>
-              <p className="mb-4 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-400">Overview</p>
-              <h2
-                className="font-display font-bold uppercase leading-none tracking-tight text-stone-900"
-                style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-              >
-                A bold identity<br />built to last.
-              </h2>
-            </div>
-            <div className="pt-2">
-              <p className="mb-4 leading-relaxed text-stone-500">{project.overview}</p>
-              <p className="leading-relaxed text-stone-500">{project.overviewSub}</p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="border border-stone-200 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.12em] text-stone-400">
-                    {tag}
-                  </span>
-                ))}
+          <div className="mx-auto max-w-screen-xl">
+            <p className="mb-6 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-stone-400">Overview</p>
+            <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[3fr_2fr] md:gap-16">
+              <div>
+                <h2
+                  className="font-display font-bold leading-tight tracking-tight text-stone-900"
+                  style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+                >
+                  {project.overviewTitle}
+                </h2>
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="bg-stone-900 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.12em] text-white">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="mb-4 leading-relaxed text-stone-900">{project.overview}</p>
+                <p className="leading-relaxed text-stone-900">{project.overviewSub}</p>
               </div>
             </div>
           </div>
@@ -291,7 +335,7 @@ export default function ProjectPage() {
 
       {/* ── 1. BIG HORIZONTAL IMAGE ──────────────────────────── */}
       <Reveal className="px-8 py-4 md:px-14 lg:px-20">
-        <div className="mx-auto max-w-screen-xl overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+        <div className="mx-auto max-w-screen-xl overflow-hidden bg-stone-200 aspect-[3/2] md:aspect-auto md:h-svh">
           <img src={project.images[0]} alt="Project overview" className="h-full w-full object-cover" />
         </div>
       </Reveal>
@@ -299,10 +343,10 @@ export default function ProjectPage() {
       {/* ── 2. LEFT IMAGE + RIGHT TEXT ───────────────────────── */}
       <Reveal className="px-8 py-4 md:px-14 lg:px-20">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+          <div className="overflow-hidden bg-stone-200 aspect-[4/3] sm:aspect-auto sm:h-svh">
             <img src={project.images[1]} alt="" className="h-full w-full object-cover" />
           </div>
-          <div className="flex flex-col justify-center bg-stone-950 px-10 py-16 md:px-14" style={{ height: '100vh' }}>
+          <div className="flex flex-col justify-center bg-stone-950 px-10 py-16 md:px-14 sm:h-svh">
             <p className="mb-6 text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#FF642B]">Behind the work</p>
             <h3 className="mb-6 font-display font-bold uppercase leading-tight text-white" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.5rem)' }}>
               {project.closingTitle}
@@ -315,7 +359,7 @@ export default function ProjectPage() {
 
       {/* ── 3. BIG HORIZONTAL IMAGE ──────────────────────────── */}
       <Reveal className="px-8 py-4 md:px-14 lg:px-20">
-        <div className="mx-auto max-w-screen-xl overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+        <div className="mx-auto max-w-screen-xl overflow-hidden bg-stone-200 aspect-[3/2] md:aspect-auto md:h-svh">
           <img src={project.images[2]} alt="" className="h-full w-full object-cover" />
         </div>
       </Reveal>
@@ -323,10 +367,10 @@ export default function ProjectPage() {
       {/* ── 4. TWO IMAGES SIDE BY SIDE ───────────────────────── */}
       <Reveal className="px-8 py-4 pb-16 md:px-14 md:pb-24 lg:px-20">
         <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+          <div className="overflow-hidden bg-stone-200 aspect-[3/2] sm:aspect-auto sm:h-svh">
             <img src={project.images[3]} alt="" className="h-full w-full object-cover" />
           </div>
-          <div className="overflow-hidden bg-stone-200" style={{ height: '100vh' }}>
+          <div className="overflow-hidden bg-stone-200 aspect-[3/2] sm:aspect-auto sm:h-svh">
             <img src={project.images[4]} alt="" className="h-full w-full object-cover" />
           </div>
         </div>
@@ -338,7 +382,7 @@ export default function ProjectPage() {
           to={`/projects/${nextProject.slug}`}
           className="group relative flex flex-col items-center justify-center overflow-hidden bg-stone-950 px-6 py-32 text-center text-white md:py-48"
         >
-          <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-25">
+          <div className="absolute inset-0 opacity-25">
             <img src={nextProject.heroImage} alt={nextProject.title} className="h-full w-full object-cover" />
           </div>
           <p className="relative mb-4 text-[0.65rem] font-bold uppercase tracking-[0.25em] text-white/40">Next Project</p>
@@ -355,11 +399,35 @@ export default function ProjectPage() {
       )}
 
       {/* ── FOOTER ──────────────────────────────────────────── */}
-      <footer className="flex items-center justify-between border-t border-stone-200 bg-stone-50 px-8 py-6 md:px-14 lg:px-20">
-        <span className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-stone-400">© {new Date().getFullYear()} Studio 91</span>
-        <a href="/#work" className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-stone-400 transition-colors duration-200 hover:text-stone-900">
-          All Recent Projects
-        </a>
+      <footer className="bg-stone-950 px-8 py-8 md:px-14 lg:px-20">
+        <div className="mx-auto flex max-w-screen-xl flex-col items-center gap-4 text-center">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {[
+              { label: 'Instagram', href: 'https://instagram.com' },
+              { label: 'LinkedIn', href: 'https://linkedin.com' },
+              { label: 'Spotify', href: 'https://spotify.com' },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-400 transition-colors duration-300 hover:text-white"
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+          <a
+            href="/"
+            className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-400 transition-colors duration-300 hover:text-white"
+          >
+            Back to Home Page
+          </a>
+          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-stone-600">
+            © {new Date().getFullYear()} Studio 91. All rights reserved
+          </p>
+        </div>
       </footer>
 
     </div>
