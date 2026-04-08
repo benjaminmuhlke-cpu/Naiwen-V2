@@ -89,6 +89,16 @@ export const fr: Translations = {
     success: 'Envoyé. Nous vous contacterons bientôt.',
     error: 'Une erreur est survenue. Veuillez réessayer.',
   },
+  showcase: {
+    heading: 'Projets',
+    categories: {
+      'Packaging': 'Packaging',
+      'Limited Edition Packaging': 'Packaging Édition Limitée',
+      'Campaign & Packaging': 'Campagne & Packaging',
+      'Brand Identity': 'Identité de marque',
+      'Digital & Motion': 'Digital & Motion',
+    },
+  },
   footer: {
     rights: 'Tous droits réservés',
   },

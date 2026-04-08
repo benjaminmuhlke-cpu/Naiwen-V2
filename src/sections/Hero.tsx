@@ -139,7 +139,7 @@ export default function Hero() {
         {/* Left — orange panel */}
         <div className="relative flex flex-col justify-center bg-[#FF642B] px-8 pb-6 pt-14 md:w-[42%] md:px-14 md:pb-8 md:pt-16 lg:px-20">
           <div className="flex flex-col gap-5">
-            <h1 className="font-display text-[clamp(2rem,4vw,4rem)] font-bold uppercase leading-[0.88] tracking-[-0.03em] text-stone-950">
+            <h1 className="font-display text-[clamp(2rem,4vw,4rem)] font-bold uppercase leading-[1.05] tracking-[-0.03em] text-stone-950">
               {t.hero.heading}
             </h1>
             <p className="max-w-sm text-sm font-medium leading-relaxed text-stone-900/70 md:text-base">

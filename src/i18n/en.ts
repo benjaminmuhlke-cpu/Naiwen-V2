@@ -87,6 +87,16 @@ export const en = {
     success: "Sent. We'll be in touch soon.",
     error: 'Something went wrong. Please try again.',
   },
+  showcase: {
+    heading: 'Work',
+    categories: {
+      'Packaging': 'Packaging',
+      'Limited Edition Packaging': 'Limited Edition Packaging',
+      'Campaign & Packaging': 'Campaign & Packaging',
+      'Brand Identity': 'Brand Identity',
+      'Digital & Motion': 'Digital & Motion',
+    },
+  },
   footer: {
     rights: 'All rights reserved',
   },
