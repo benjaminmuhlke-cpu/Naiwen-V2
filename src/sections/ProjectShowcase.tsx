@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { sanityClient, PROJECTS_QUERY } from '../lib/sanity';
 
 type Project = {
   category: string;
@@ -8,69 +9,6 @@ type Project = {
   slug: string;
   images: string[];
 };
-
-const projects: Project[] = [
-  {
-    title: 'TAFE BUTTERBEER PASTRY',
-    category: 'Packaging',
-    slug: 'tafe-warner-hp',
-    images: [
-      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1400&q=80&auto=format&fit=crop',
-    ],
-  },
-  {
-    title: 'STARBUCKS',
-    category: 'Limited Edition Packaging',
-    slug: 'starbucks',
-    images: [
-      'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1400&q=80&auto=format&fit=crop',
-    ],
-  },
-  {
-    title: 'BE-KIND',
-    category: 'Campaign & Packaging',
-    slug: 'be-kind',
-    images: [
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1400&q=80&auto=format&fit=crop',
-    ],
-  },
-  {
-    title: 'YEAH RIGHT',
-    category: 'Brand Identity',
-    slug: 'yeah-right',
-    images: [
-      'https://images.unsplash.com/photo-1536329583941-14287ec6fc4e?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80&auto=format&fit=crop',
-    ],
-  },
-  {
-    title: 'ENERGY',
-    category: 'Digital & Motion',
-    slug: 'energy',
-    images: [
-      'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=1400&q=80&auto=format&fit=crop',
-    ],
-  },
-  {
-    title: 'LA FESTIN',
-    category: 'Brand Identity',
-    slug: 'la-festin',
-    images: [
-      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=1400&q=80&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1400&q=80&auto=format&fit=crop',
-    ],
-  },
-];
 
 function ProjectCard({ project, categoryLabel }: { project: Project; categoryLabel: string }) {
   const [active, setActive] = useState(0);
@@ -88,7 +26,6 @@ function ProjectCard({ project, categoryLabel }: { project: Project; categoryLab
         className="group relative cursor-pointer overflow-hidden bg-stone-200"
         style={{ height: 'clamp(220px, 38vw, 600px)' }}
       >
-        {/* Slides */}
         {project.images.map((src, i) => (
           <img
             key={src}
@@ -103,10 +40,8 @@ function ProjectCard({ project, categoryLabel }: { project: Project; categoryLab
           />
         ))}
 
-        {/* Overlay */}
         <div className="pointer-events-none absolute inset-0 bg-stone-950/25 transition-opacity duration-300 group-hover:bg-stone-950/45" />
 
-        {/* Title + category */}
         <div className="absolute bottom-0 left-0 p-6 md:p-8">
           <p className="font-display text-lg font-bold uppercase leading-tight tracking-[-0.01em] text-white md:text-xl">
             {project.title}
@@ -116,7 +51,6 @@ function ProjectCard({ project, categoryLabel }: { project: Project; categoryLab
           </p>
         </div>
 
-        {/* Dot indicators — bottom center */}
         <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-row items-center gap-2">
           {project.images.map((_, i) => (
             <button
@@ -138,6 +72,18 @@ function ProjectCard({ project, categoryLabel }: { project: Project; categoryLab
 
 export default function ProjectShowcase() {
   const { t } = useLanguage();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    sanityClient.fetch<Project[]>(PROJECTS_QUERY)
+      .then((data) => {
+        setProjects(data ?? []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
   const row1 = projects.slice(0, 2);
   const row2 = projects.slice(2, 4);
   const row3 = projects.slice(4, 6);
@@ -153,20 +99,29 @@ export default function ProjectShowcase() {
           {t.showcase.heading}
         </h2>
 
-        {/* Row 1 */}
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-          {row1.map((p) => <ProjectCard key={p.title} project={p} categoryLabel={catLabel(p.category)} />)}
-        </div>
-
-        {/* Row 2 */}
-        <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
-          {row2.map((p) => <ProjectCard key={p.title} project={p} categoryLabel={catLabel(p.category)} />)}
-        </div>
-
-        {/* Row 3 */}
-        <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
-          {row3.map((p) => <ProjectCard key={p.title} project={p} categoryLabel={catLabel(p.category)} />)}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="animate-pulse bg-stone-100"
+                style={{ height: 'clamp(220px, 38vw, 600px)' }}
+              />
+            ))}
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+              {row1.map((p) => <ProjectCard key={p.slug} project={p} categoryLabel={catLabel(p.category)} />)}
+            </div>
+            <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+              {row2.map((p) => <ProjectCard key={p.slug} project={p} categoryLabel={catLabel(p.category)} />)}
+            </div>
+            <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+              {row3.map((p) => <ProjectCard key={p.slug} project={p} categoryLabel={catLabel(p.category)} />)}
+            </div>
+          </>
+        )}
 
       </div>
     </section>
